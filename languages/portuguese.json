@@ -1,0 +1,185 @@
+{
+  "translation": {
+    // components/TabRoutes
+    "TabRoutesSearch": "Procurar",
+
+    // components/Tasks
+    "SingularReceived": "Não Iniciado",
+    "Started": "Realizando...",
+    "Ended": "Finalizado:",
+    "Due": "Prazo:",
+    "AcceptThisTask": "Aceitar essa tarefa?",
+    "ConfirmationPhoto": "Foto de confirmação:",
+    "SubItems": "Sub-itens:",
+    "ConfirmAndEnd": "Confirmar e finalizar essa tarefa?",
+    "Comments": "Comentários",
+    "AreYouSureDecline": "Tem certeza que deseja recusar essa tarefa?",
+    "ChoosePhotoFrom": "Escolher a foto da:",
+    "Reel": "Galeria",
+    "Camera": "Câmera",
+    "Sending": "Enviando...",
+    "AcceptedComment": "Aceitou: {{taskName}}",
+    "DeclinedComment": "Recusou: {{taskName}}. Comentário: {{comment}}",
+    "ErrorNotAblePhoto": "Erro: Não foi possível enviar a foto",
+    "PhotoSent": "Foto enviada",
+    "RevivedComment": "Tarefa Ressucitada: {{taskName}}",
+    "CanceledComment": "Tarefa Cancelada: {{taskName}}",
+
+    // components/TasksUser
+    "StartedDateAndTime": "Início Data e Hora:",
+    "DueDateAndTime": "Prazo Data e Hora:",
+    "PriorityLabel": "Prioridade:",
+    "EndingTime": "Hora da entrega",
+    "CancelThisTask": "Cancelar essa tarefa?",
+    "PermanentlyDelete": "Deletar a tarefa permanentemente?",
+
+    // pages/ContactPage
+    "LetsSearch": "Vamos Procurar",
+    "InviteSomeone": "Convidar Pessoas",
+
+    // pages/FollowedPage
+    // pages/FollowPage
+    "NoContactsRegistered": "Não há contatos registrados",
+
+    // pages/Dashboard
+    "Followers": "Seguidores",
+    "Following": "Você está seguindo",
+    "ReceivedTasksStatus": "Status de tarefas recebidas:",
+    "Received": "Recebidas",
+    "Open": "Abertas",
+    "Finished": "Finalizadas",
+    "Canceled": "Canceladas",
+    "Overdue": "atrasadas",
+    "DueToday": "para hoje",
+    "Tomorrow": "amanhã",
+    "ThisWeek": "essa semana",
+    "SentTaskStatus": "Status de tarefas enviadas:",
+    "Sent": "Enviadas",
+    "EditBio": "Editar Bio",
+    "EditInstagram": "Editar o usuário de Instagram:",
+    "EditLinkedIn": "Edit o usuário de LinkedIn:",
+    "JustWrite": "Escreva apenas o nome de usuário",
+    "LowerCaseUsername": "nome de usuário",
+    "Cancel": "Cancelar",
+
+    //pages/MessageConversationPage
+    "ForwardedMessage": "Mensagem Encaminhada",
+    "ThisMessageWasDeleted": "Mensagem Deletada",
+    "Cancel": "Cancelar",
+    "Reply": "Responder",
+    "Forward": "Encaminhar",
+    "Delete": "Deletar",
+    "Message": "Mensagem",
+
+    //pages/MessagesPage
+    "NoMessages": "Não há mensagens",
+
+    // pages/Settings
+    "INeedANewBio": "Preciso de uma nova bio",
+    "EditAccount": "Editar conta",
+    "Help": "Ajuda",
+    "SelectLanguage": "Selecionar língua",
+    "ShareGodtasker": "Compartilhar Godtasker",
+    "Exit": "Sair",
+    "UseTheText": "Usar o texto abaixo:",
+    "IWouldLikeTo": "Eu gostaria de te enviar uma tarefa através do Godtasker. O Godtasker é um app simples para enviar tarefas de uma pessoa para a outra.\n\nVocê pode baixar o Godtasker no: \n\n Android:\nwww.wwwwwww.com\n\niOS:\nwww.wwwwwww.com",
+    "CopyText": "Copiar o texto",
+
+    // pages/signIn
+    "DelegateTasks": "Delegue tarefas para qualquer pessoa de uma forma sucinta e organizada",
+    "SignIn": "Login",
+    "YourPassword": "Sua senha",
+    "Login": "Entrar",
+    "ForgotPassword": "Esqueci a senha",
+    "Or": "ou",
+    "SignUp": "Cadastre-se",
+    "ResendEmail": "Re-enviar o e-mail de confirmação",
+    "PleaseFillInEmail": "Por favor preencher o e-mail",
+    "PleaseFillInPassword": "Por favor preencher a senha",
+    "WrongPassword": "Senha errada. Tente 'Esqueci a senha'",
+    "UserNotFound": "Usuário não encontrado",
+    "InvalidEmailFormat": "Formato de e-mail inválido",
+    "ErrorOccured": "Ocorreu um erro",
+    "UserEmailNotVerified": "E-mail do usuário não verificado",
+    "PasswordEmailSentTo": "E-mail de refazer a senha enviado para: {{email}}",
+    "EmailSentTo": "e-mail enviado para: {{email}}",
+    "UserAlreadyVerified": "Usuário já verificado",
+    "SendForgotPasswordEmail": "Enviar e-mail de 'Esqueci a senha'",
+    "ResendConfirmation": "Re-enviar a confirmação",
+
+    // pages/SignUo
+    "UserName": "Nome de usuário",
+    "Password": "Senha",
+    "ConfirmPassword": "Confirmar a senha",
+    "ErrorInData": "Erro nos dados",
+    "Search": "Pesquisar",
+
+    //pages/TaskCreatePage
+    "Title": "Título:",
+    "WashTheCar": "Lavar o carro",
+    "SendTo": "Enviar para:",
+    "SentTo": "Enviada para:",
+    "FollowingList": "Lista de 'Você está Seguindo'",
+    "SubItem": "Sub-item:",
+    "UseSoap": "1. Use sabão...",
+    "SubItemWeige": "Peso de sub-item:",
+    "SubItemList": "Lista de sub-itens:",
+    "Weige": "Peso",
+    "AddSubItem": "Adicionar sub-item",
+    "StartAndDueDates": "Datas de início e entrega:",
+    "PickDates": "Escolher datas",
+    "Priority": "Prioridade:  ",
+    "Low": "Baixa",
+    "Medium": "Média",
+    "High": "Alta",
+    "NA": "n/a",
+    "ConfirmWithPhoto": "Confirmar com foto?",
+    "Yes": "Sim",
+    "no": "Não",
+    "OtherComments": "Outros comentários:",
+    "DontForget": "Não esquecer de passar cera",
+    "StartDate": "Data de início:",
+    "DueDate": "Data de entrega:",
+
+    "PleaseChooseAPerson": "Por favor escolher uma pessoa",
+    "UseTheFollowingList": "Use o botão de 'lista de Seguindo' e selecionar para quem a tarefa será enviada",
+    "PleaseInsertATitle": "Por favor inserir um título",
+    "StartDateIsInThePast": "A data de início está no passado",
+    "StartDateCannot": "A data de início tem que ser no mínimo 1 hora antes de agora",
+    "DueDateIsBefore": "A data de entrega está antes da data de início",
+    "TheDueDateAndTime": "A data e hora de entrega deve ser depois da data e hora de início",
+    "DueDateIsSetWithin": "A entrega está dentro da próxima hora",
+    "AreYouSure": "Tem certeza que isso está OK?",
+    "Success": "Sucesso",
+    "TaskRegistered": "Tarefa registrada",
+    "ErrorTaskNotRegistered": "Erro: Tarefa não registrada",
+    "PleaseTryAgain": "Por favor tente de novo",
+
+    // pages/TaskPage
+    "LowerCaseOpen": "abertas",
+    "LowerCaseFinished": "finalizadas",
+    "LowerCaseCanceled": "canceladas",
+    "NoTasksWith": "Não há tarefas com esse status",
+
+    // pages/UpdateProfile
+    "Name": "Nome",
+    "LastName": "Sobrenome",
+    "ErrorLoadingPhoto": "Erro ao carregar a foto",
+    "UpdateFailed": "Erro na atualização. Erro nos dados",
+
+    // pages/WorkerPage
+    "Follow": "Seguir",
+
+    //routes.js
+    "CreateTask": "Criar Tarefa",
+    "EditTask": "Editar Tarefa",
+    "Settings": "Configurações",
+    "ContactProfile": "Perfil de Contato",
+
+    // general
+    "Send": "Enviar",
+    "Back": "Voltar",
+    "Submit": "Enviar",
+
+  }
+}

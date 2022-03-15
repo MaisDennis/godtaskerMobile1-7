@@ -1,0 +1,186 @@
+{
+  "translation": {
+    // components/TabRoutes
+    "TabRoutesSearch": "Search",
+
+    // components/Tasks
+    "SingularReceived": "Not Started",
+    "Started": "Ongoing...",
+    "Ended": "Ended:",
+    "Due": "Due:",
+    "AcceptThisTask": "Accept this task?",
+    "ConfirmationPhoto": "Confirmation Photo:",
+    "SubItems": "Sub-items:",
+    "ConfirmAndEnd": "Confirm and end this task?",
+    "Comments": "Comments",
+    "AreYouSureDecline": "Are you sure you wish to decline this task?",
+    "ChoosePhotoFrom": "Choose photo from:",
+    "Reel": "Reel",
+    "Camera": "Camera",
+    "Sending": "Sending...",
+    "AcceptedComment": "Accepted: {{taskName}}",
+    "DeclinedComment": "Declined: {{taskName}}. Comment: {{comment}}",
+    "ErrorNotAblePhoto": "Error: Not able to send photo",
+    "PhotoSent": "Photo sent",
+    "RevivedComment": "Task Revived: {{taskName}}",
+    "CanceledComment": "Task Canceled: {{taskName}}",
+
+    // components/TasksUser
+    "StartedDateAndTime": "Started Date & Time:",
+    "DueDateAndTime": "Due Date & Time:",
+    "PriorityLabel": "Priority:",
+    "EndingTime": "Ending Time",
+    "CancelThisTask": "Cancel this task?",
+    "PermanentlyDelete": "Permanently delete this task?",
+
+    // pages/ContactPage
+    "InviteSomeone": "Invite People",
+    "LetsSearch": "Let's Search",
+
+    // pages/FollowedPage
+    // pages/FollowPage
+    "NoContactsRegistered": "No Conctacts Registered",
+
+    // pages/Dashboard
+    "Followers": "Followers",
+    "Following": "Following",
+    "ReceivedTasksStatus": "Received Tasks Status:",
+    "Received": "Received",
+    "Open": "Open",
+    "Finished": "Finished",
+    "Canceled": "Canceled",
+    "Overdue": "overdue",
+    "DueToday": "due today",
+    "Tomorrow": "tomorrow",
+    "ThisWeek": "this week",
+    "SentTaskStatus": "Sent Tasks Status:",
+    "Sent": "Sent",
+    "EditBio": "Edit Bio",
+    "EditInstagram": "Edit Instagram username:",
+    "EditLinkedIn": "Edit LinkedIn username:",
+    "JustWrite": "Just write the username",
+    "LowerCaseUsername": "username",
+
+    // pages/MessageConversationPage
+    "ForwardedMessage": "Forwarded Message",
+    "ThisMessageWasDeleted": "This message was deleted",
+    "Cancel": "Cancel",
+    "Reply": "Reply",
+    "Forward": "Forward",
+    "Delete": "Delete",
+    "Message": "Message",
+
+    //pages/MessagesPage
+    "NoMessages": "No Messages",
+
+    // pages/Settings
+    "INeedANewBio": "I need a new bio",
+    "EditAccount": "Edit Account",
+    "Help": "Help",
+    "SelectLanguage": "Select Language",
+    "ShareGodtasker": "Share Godtasker",
+    "Exit": "Exit",
+    "UseTheText": "Use the text below:",
+    "IWouldLikeTo": "I would like to send you a task through Godtasker. Godtasker is a simple app for sending tasks to each other.\n\nYou can download Godtasker through: \n\n Android:\nwww.wwwwwww.com\n\niOS:\nwww.wwwwwww.com",
+    "CopyText": "Copy Text",
+
+
+    // pages/signIn
+    "DelegateTasks": "Delegate tasks to anyone in a clear and organized way",
+    "SignIn": "Sign In",
+    "YourPassword": "Your password",
+    "Login": "Login",
+    "ForgotPassword": "Forgot Password",
+    "Or": "or",
+    "SignUp": "Sign Up",
+    "ResendEmail": "Resend e-mail Confirmation",
+    "PleaseFillInEmail": "Please fill in e-mail",
+    "PleaseFillInPassword": "Please fill in password",
+    "WrongPassword": "Wrong password. Try 'Forgot Password'",
+    "UserNotFound": "User Not Found",
+    "InvalidEmailFormat": "Invalid e-mail format",
+    "ErrorOccured": "Error occurred",
+    "UserEmailNotVerified": "User e-mail is not verified",
+    "PasswordEmailSentTo": "Password reset email sent to: {{email}}",
+    "EmailSentTo": "e-mail sent to: {{email}}",
+    "UserAlreadyVerified": "user already verified",
+    "SendForgotPasswordEmail": "Send 'Forgot Password' e-mail",
+    "ResendConfirmation": "Re-send confirmation",
+
+    // pages/SignUo
+    "UserName": "Username",
+    "Password": "Password",
+    "ConfirmPassword": "Confirm password",
+    "ErrorInData": "Error in data",
+    "Search": "Search",
+
+    //pages/TaskCreatePage
+    //pages/TaskEditPage
+    "Title": "Title:",
+    "WashTheCar": "Wash the car",
+    "SendTo": "Send to:",
+    "SentTo": "Sent to:",
+    "FollowingList": "Following List",
+    "SubItem": "Sub-item:",
+    "UseSoap": "1. Use soap...",
+    "SubItemWeige": "Sub-item weige:",
+    "SubItemList": "Sub-item list:",
+    "Weige": "Weige",
+    "AddSubItem": "Add sub-item",
+    "StartAndDueDates": "Start & Due Dates:",
+    "PickDates": "Pick Dates",
+    "Priority": "Priority:",
+    "Low": "Low",
+    "Medium": "Medium",
+    "High": "High",
+    "NA": "n/a",
+    "ConfirmWithPhoto": "Confirm with photo?",
+    "Yes": "Yes",
+    "no": "No",
+    "OtherComments": "Other Comments:",
+    "DontForget": "Don't forget to wax",
+    "StartDate": "Start date:",
+    "DueDate": "Due Date:",
+
+    "PleaseChooseAPerson": "Please choose a person",
+    "UseTheFollowingList": "Use the 'Following List' button and select who(m) the task will be sent to",
+    "PleaseInsertATitle": "Please insert a title",
+    "StartDateIsInThePast": "Start Date is in the past",
+    "StartDateCannot": "Start Date cannot be set before 1 hour prior to now",
+    "DueDateIsBefore": "Due Date is before Start Date",
+    "TheDueDateAndTime": "The Due Date & Time must be set after Start Date & Time",
+    "DueDateIsSetWithin": "Due Date is set within the next hour",
+    "AreYouSure": "Are you sure this is OK?",
+    "Success": "Success",
+    "TaskRegistered": "Task registered",
+    "ErrorTaskNotRegistered": "Error: Task not registered",
+    "PleaseTryAgain": "Please try again",
+
+    // pages/TaskPage
+    "LowerCaseOpen": "open",
+    "LowerCaseFinished": "finished",
+    "LowerCaseCanceled": "canceled",
+    "NoTasksWith": "No tasks with this status",
+
+    // pages/UpdateProfile
+    "Name": "Name",
+    "LastName": "Last Name",
+    "ErrorLoadingPhoto": "Error loading photo",
+    "UpdateFailed": "Update failed. Error in data",
+
+    // pages/WorkerPage
+    "Follow": "Follow",
+
+    //routes.js
+    "CreateTask": "Create Task",
+    "EditTask": "Edit Task",
+    "Settings": "Settings",
+    "ContactProfile": "Contact Profile",
+
+    // general
+    "Send": "Send",
+    "Back": "Back",
+    "Submit": "Submit"
+
+  }
+}
