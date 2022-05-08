@@ -11,6 +11,7 @@ export default function Button({
   text,
   type,
   small,
+  black,
   ...rest
 }) {
   const styles = StyleSheet.create({
@@ -29,11 +30,21 @@ export default function Button({
       text={text}
     >
       <DropShadow style={styles.shadowProp}>
-        <ButtonWrapper type={type} small={small} text={text} {...rest}>
+        <ButtonWrapper
+          type={type}
+          small={small}
+          black={black}
+          text={text}
+          {...rest}
+        >
           {loading ? (
             <ActivityIndicator size="small" color="#FFF" />
           ) : (
-            <ButtonText type={type} text={text}>{children}</ButtonText>
+            <ButtonText
+              type={type}
+              black={black}
+              text={text}
+            >{children}</ButtonText>
           )}
         </ButtonWrapper>
       </DropShadow>

@@ -6,7 +6,7 @@ import Modal from 'react-native-modal';
 import { format, parseISO } from 'date-fns';
 import CheckBox from '@react-native-community/checkbox'; //https://github.com/react-native-checkbox/react-native-checkbox
 import firestore from '@react-native-firebase/firestore';
-import { enUS, pt} from 'date-fns/locale/pt';
+import { enUS, ptBR } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
 // -----------------------------------------------------------------------------
 import {
@@ -14,7 +14,7 @@ import {
   ButtonWrapper,
   AlignDetailsView, AlignCheckBoxView,
   BackButton, BackIcon, BackIcon02, BackText,
-  BodyView, BodyWrapper, ButtonForModal, ButtonView,
+  BodyView, BodyWrapper, ButtonForModal, ButtonForModalRight, ButtonView,
   BellIcon, BottomHeaderView, ButtonText,
   CenterView, CheckBoxView, CheckBoxWrapper, Container,
   DescriptionView, DescriptionBorderView, DescriptionSpan,
@@ -32,7 +32,7 @@ import {
   StartTimeView, StartTime,
   TagView, TitleView, TaskIcon, TitleIcon, TitleIconUser,
   TitleUserText, TitleTextModalUser, TaskAttributesView,
-  ToText, ToWorkerView,
+  ToText, ToTextModal, ToWorkerView,
   UnreadMessageCountText, UserImage, UserImageBackground,
 } from '../Tasks/styles';
 import { updateTasks } from '~/store/modules/task/actions';
@@ -42,15 +42,6 @@ import Button from '~/components/Button'
 import ButtonForIcon from '~/components/ButtonForIcon'
 import api from '~/services/api';
 // -----------------------------------------------------------------------------
-const formattedDate = fdate =>
-  fdate == null
-    ? '-'
-    : format(parseISO(fdate), "MMM'/'dd'/'yyyy", { locale: enUS });
-
-const formattedDateTime = fdate =>
-  fdate == null
-    ? '-'
-    : format(parseISO(fdate), "MMM'/'dd'/'yyyy HH:mm", { locale: enUS });
 
 export default function TaskUser({ data, navigation, taskConditionIndex }) {
   // console.log(data)
@@ -58,10 +49,27 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
   const dispatch = useDispatch();
   const updated_tasks = useSelector( state => state.task.tasks)
 
-  const user_id = data.user.id;
-  const worker_id = data.worker.id;
+  const formattedDate = fdate =>
+  fdate == null
+    ? '-'
+    : i18n.language === 'en'
+      ? format(parseISO(fdate), "MMM'/'dd'/'yyyy", { locale: enUS })
+      : format(parseISO(fdate), "dd'/'MMM'/'yyyy", { locale: ptBR })
 
+  const formattedDateTime = fdate =>
+    fdate == null
+      ? '-'
+      : i18n.language === 'en'
+        ? format(parseISO(fdate), "MMM'/'dd'/'yyyy h:mm aaa", { locale: enUS })
+        : format(parseISO(fdate), "MMM'/'dd'/'yyyy HH:mm", { locale: ptBR });
+
+  const user_id = data.user.id;
+  const user_email = data.user.email;
+
+  const worker_id = data.worker.id;
+  const worker_email = data.worker.email;
   const workerData = data.worker;
+
   const userData = data.user;
   const dueDate = parseISO(data.due_date);
   const endDate = parseISO(data.end_date);
@@ -69,7 +77,7 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
   const points = data.points;
   const subPoints = points - 100;
   const confirmPhoto = data.confirm_photo;
-
+  const status = data.status;
   const [toggleTask, setToggleTask] = useState();
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [toggleCancelModal, setToggleCancelModal] = useState();
@@ -111,8 +119,6 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
           const data = querySnapshot.docs.map(d => ({
             ...d.data(),
           }));
-          // console.log(data)
-          // lastMessageRef.current.scrollToEnd({ animated: false })
           setMessageBell(data)
         }
         catch {
@@ -171,24 +177,27 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
 
   async function handleMessageConversation() {
     setToggleTask(!toggleTask)
-    const response = await api.get('/messages', {
+    const response = await api.get('/messages/user', {
       params: {
-        user_id: user_id,
-        worker_id: worker_id,
+        user_email: user_email,
+        worker_email: worker_email,
       },
     })
     const messageData = response.data
-    // console.log(response.data)
     if(response.data.message === null) {
       const chat_id = Math.floor(Math.random() * 1000000)
       navigation.navigate('MessagesConversationPage', {
         // id: data.id,
         user_id: user_id,
         user_name: userData.user_name,
+        user_email: user_email,
         userData: userData,
+
         worker_id: worker_id,
         worker_name: workerData.worker_name,
+        worker_email: worker_email,
         workerData: workerData,
+
         chat_id: chat_id,
         avatar: workerData.avatar,
         first_message: true,
@@ -201,10 +210,14 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
       // id: data.id,
       user_id: userData.id,
       user_name: userData.user_name,
+      user_email: user_email,
       userData: userData,
+
       worker_id: workerData.id,
       worker_name: workerData.worker_name,
+      worker_email: worker_email,
       workerData: workerData,
+
       avatar: workerData.avatar,
       chat_id: response.data.message.chat_id,
       inverted: response.data.inverted,
@@ -317,11 +330,14 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
             <TagView>
               { data.initiated_at
                 ? (
-                  <LabelInitiated>{t('Started')}</LabelInitiated>
+                  <>
+                    { taskConditionIndex === 2
+                      ? (<Label>-</Label>)
+                      : (<LabelInitiated>{t('Started')}</LabelInitiated>)
+                    }
+                  </>
                 )
-                : (
-                  <Label>{t('Sent')}</Label>
-                )
+                : (<Label>{t('Sent')}</Label>)
               }
             </TagView>
             <TagView>
@@ -388,6 +404,7 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
       <Modal isVisible={toggleTask}>
         {/* <ModalView> */}
           <FormScrollView>
+            <MarginView02/>
             <ModalHeaderView>
               <ModalHeaderLeft>
                 <ButtonForModal
@@ -402,34 +419,41 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
                       <BackIcon name="arrow-left" size={20}/>
                     )
                   }
-                  <BackText>Back</BackText>
+                  <BackText>{t('Back')}</BackText>
                 </ButtonForModal>
               </ModalHeaderLeft>
               <ModalHeaderCenter/>
               <ModalHeaderRight>
-              <ButtonForModal
+                <ButtonForModalRight
                   type='submit'
                   onPress={handleToggleTask}
                 >
-                  { Platform.OS === 'ios'
-                    ? (
-                      <BackIcon02
-                        name="message-square"
-                        size={24}
-                        onPress={handleMessageConversation}
-                      />
-                    )
+                  { taskConditionIndex === 2
+                    ? null
                     : (
-                      <BackIcon02
-                        name="message-square"
-                        size={20}
-                        onPress={handleMessageConversation}
-                      />
+                      <>
+                        { Platform.OS === 'ios'
+                          ? (
+                            <BackIcon02
+                              name="message-square"
+                              size={24}
+                              onPress={handleMessageConversation}
+                            />
+                          )
+                          : (
+                            <BackIcon02
+                              name="message-square"
+                              size={20}
+                              onPress={handleMessageConversation}
+                            />
+                          )
+                        }
+                      </>
                     )
                   }
 
-                </ButtonForModal>
-                <ButtonForModal
+                </ButtonForModalRight>
+                <ButtonForModalRight
                   type='submit'
                   onPress={handleToggleTask}
                 >
@@ -464,16 +488,16 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
                         { Platform.OS === 'ios'
                           ? (
                             <BackIcon02
-                              name="trash"
+                              name="message-square"
                               size={24}
-                              onPress={handleToggleDeleteModal}
+                              onPress={handleMessageConversation}
                             />
                           )
                           : (
                             <BackIcon02
-                              name="trash"
+                              name="message-square"
                               size={20}
-                              onPress={handleToggleDeleteModal}
+                              onPress={handleMessageConversation}
                             />
                           )
                         }
@@ -483,6 +507,7 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
                       null
                     )
                   }
+
                   { taskConditionIndex === 3
                     ? (
                       <>
@@ -508,6 +533,11 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
                       null
                     )
                   }
+                </ButtonForModalRight>
+                <ButtonForModalRight
+                  type='submit'
+                  onPress={handleToggleTask}
+                >
                   { taskConditionIndex === 1
                     ? (
                       <>
@@ -533,6 +563,31 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
                       null
                     )
                   }
+                  { taskConditionIndex === 2
+                    ? (
+                      <>
+                        { Platform.OS === 'ios'
+                          ? (
+                            <BackIcon02
+                              name="trash-2"
+                              size={24}
+                              onPress={handleToggleDeleteModal}
+                            />
+                          )
+                          : (
+                            <BackIcon02
+                              name="trash-2"
+                              size={20}
+                              onPress={handleToggleDeleteModal}
+                            />
+                          )
+                        }
+                      </>
+                    )
+                    : (
+                      null
+                    )
+                  }
                   { taskConditionIndex === 3
                     ? (
                       <>
@@ -558,7 +613,7 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
                       null
                     )
                   }
-                </ButtonForModal>
+                </ButtonForModalRight>
               </ModalHeaderRight>
             </ModalHeaderView>
 
@@ -573,6 +628,10 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
 
               <AlignDetailsView>
                 <MarginView02/>
+                <TagView>
+                  <Label>{t('To')}</Label>
+                    <ToTextModal>{data.worker.worker_name}</ToTextModal>
+                </TagView>
                 <TagView>
                   <Label>{t('StartedDateAndTime')}</Label>
                   { data.initiated_at
@@ -660,6 +719,7 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
                   </AlignCheckBoxView>
                 ))}
               </CheckBoxWrapper>
+              <MarginView04/>
             </DescriptionView>
 
             { data.description
@@ -670,11 +730,41 @@ export default function TaskUser({ data, navigation, taskConditionIndex }) {
                     <MarginView04/>
                     <Label>{t('OtherComments')}</Label>
                     <DescriptionSpan>{data.description}</DescriptionSpan>
-                    <MarginView04/>
+                    <MarginView08/>
                   </DescriptionView>
                 </>
               )
               : null
+            }
+
+            { data.status.status === 3 &&
+              <>
+                <MarginView08/>
+                <AcceptButtonView>
+                  <MarginView04/>
+                  <Label>
+                    {t('CanceledAt', { user: data.user.user_name })}
+                    {`${formattedDateTime(data.updatedAt)}`}
+                  </Label>
+                  {/* <DescriptionSpan>{`${data.status.comment}:`}</DescriptionSpan> */}
+                  <MarginView04/>
+                </AcceptButtonView>
+              </>
+            }
+
+            { data.status.status === 4 &&
+              <>
+                <MarginView08/>
+                <AcceptButtonView>
+                  <MarginView04/>
+                  <Label>
+                    {t('DeclinedAt', { worker: `${data.worker.worker_name}` })}
+                    {`${formattedDateTime(data.updatedAt)}`}
+                  </Label>
+                  <DescriptionSpan>{`${data.status.comment}:`}</DescriptionSpan>
+                  <MarginView08/>
+                </AcceptButtonView>
+              </>
             }
 
             { data.signature &&

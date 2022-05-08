@@ -4,8 +4,10 @@
     "TabRoutesSearch": "Procurar",
 
     // components/Tasks
-    "SingularReceived": "Não Iniciado",
-    "Started": "Realizando...",
+    "To": "Para:",
+    "From": "De:",
+    "SingularReceived": "Não\nIniciado",
+    "Started": "Realizando",
     "Ended": "Finalizado:",
     "Due": "Prazo:",
     "AcceptThisTask": "Aceitar essa tarefa?",
@@ -24,10 +26,19 @@
     "PhotoSent": "Foto enviada",
     "RevivedComment": "Tarefa Ressucitada: {{taskName}}",
     "CanceledComment": "Tarefa Cancelada: {{taskName}}",
+    "Task": "Tarefa",
+    "Completed": "completou",
+    "Subtask": "sub-item",
+    "Unchecked": "desmarcou",
+    "TaskTitle": "Tarefa: {{taskName}}",
+    "TaskMessage": "Tarefa completada por {{workerName}}",
+    "EndTask": "Finalizar tarefa",
+    "DeclinedAt": "{{worker}} recusou em: ",
+    "CanceledAt": "{{user}} cancelou em: ",
 
     // components/TasksUser
-    "StartedDateAndTime": "Início Data e Hora:",
-    "DueDateAndTime": "Prazo Data e Hora:",
+    "StartedDateAndTime": "Início:",
+    "DueDateAndTime": "Prazo:",
     "PriorityLabel": "Prioridade:",
     "EndingTime": "Hora da entrega",
     "CancelThisTask": "Cancelar essa tarefa?",
@@ -43,7 +54,7 @@
 
     // pages/Dashboard
     "Followers": "Seguidores",
-    "Following": "Você está seguindo",
+    "Following": "Seguindo",
     "ReceivedTasksStatus": "Status de tarefas recebidas:",
     "Received": "Recebidas",
     "Open": "Abertas",
@@ -53,7 +64,7 @@
     "DueToday": "para hoje",
     "Tomorrow": "amanhã",
     "ThisWeek": "essa semana",
-    "SentTaskStatus": "Status de tarefas enviadas:",
+    "SentTasksStatus": "Status de tarefas enviadas:",
     "Sent": "Enviadas",
     "EditBio": "Editar Bio",
     "EditInstagram": "Editar o usuário de Instagram:",
@@ -81,9 +92,13 @@
     "SelectLanguage": "Selecionar língua",
     "ShareGodtasker": "Compartilhar Godtasker",
     "Exit": "Sair",
-    "UseTheText": "Usar o texto abaixo:",
-    "IWouldLikeTo": "Eu gostaria de te enviar uma tarefa através do Godtasker. O Godtasker é um app simples para enviar tarefas de uma pessoa para a outra.\n\nVocê pode baixar o Godtasker no: \n\n Android:\nwww.wwwwwww.com\n\niOS:\nwww.wwwwwww.com",
+    "UseTheText": "Copie a mensagem abaixo para enviar a outras pessoas:",
+    "IWouldLikeTo": "Eu gostaria de te enviar uma tarefa através do Godtasker. O Godtasker é um app simples para enviar tarefas de uma pessoa para a outra.\n\nVocê pode baixar o Godtasker no: \n\n Android:\nhttps://play.google.com/apps/testing/com.gerentedashmobile\n\niOS:\nenvie o seu endereço de e-mail para godtaskerteam@gmail.com ou Whatsapp: +5511983495853",
     "CopyText": "Copiar o texto",
+    "TextHasBeenCopied": "O texto foi copiado!",
+    "Language": "Língua:",
+    "English": "Inglês",
+    "Portuguese": "Português",
 
     // pages/signIn
     "DelegateTasks": "Delegue tarefas para qualquer pessoa de uma forma sucinta e organizada",
@@ -106,6 +121,7 @@
     "UserAlreadyVerified": "Usuário já verificado",
     "SendForgotPasswordEmail": "Enviar e-mail de 'Esqueci a senha'",
     "ResendConfirmation": "Re-enviar a confirmação",
+    "InvalidDataPleaseCheckPassword": "Dados Inválidos. Por favor verifcar a senha",
 
     // pages/SignUo
     "UserName": "Nome de usuário",
@@ -113,19 +129,24 @@
     "ConfirmPassword": "Confirmar a senha",
     "ErrorInData": "Erro nos dados",
     "Search": "Pesquisar",
+    "SignUpBio": "Olá, o meu nome de usuário é {{userName}}",
+    "ThankYou": "Obrigado por se cadastrar!",
+    "AnEmailHasBeenSent": "Um e-mail foi enviado a {{email}}. Por favor confirmar o e-mail para ativar a conta.",
+    "EmailAlreadyInUse": "Esse e-mail já está em uso",
+    "InvalidEmail": "E-mail inválido",
 
     //pages/TaskCreatePage
     "Title": "Título:",
     "WashTheCar": "Lavar o carro",
     "SendTo": "Enviar para:",
     "SentTo": "Enviada para:",
-    "FollowingList": "Lista de 'Você está Seguindo'",
+    "FollowingList": "Lista de Seguindo:",
     "SubItem": "Sub-item:",
     "UseSoap": "1. Use sabão...",
-    "SubItemWeige": "Peso de sub-item:",
+    "SubItemWeige": "Peso:",
     "SubItemList": "Lista de sub-itens:",
-    "Weige": "Peso",
-    "AddSubItem": "Adicionar sub-item",
+    "Weige": "Peso:",
+    "AddSubItem": "Adicionar",
     "StartAndDueDates": "Datas de início e entrega:",
     "PickDates": "Escolher datas",
     "Priority": "Prioridade:  ",
@@ -140,6 +161,8 @@
     "DontForget": "Não esquecer de passar cera",
     "StartDate": "Data de início:",
     "DueDate": "Data de entrega:",
+    "Created": "Created",
+    "TaskEdited": "Tarefa editada",
 
     "PleaseChooseAPerson": "Por favor escolher uma pessoa",
     "UseTheFollowingList": "Use o botão de 'lista de Seguindo' e selecionar para quem a tarefa será enviada",
@@ -169,6 +192,14 @@
 
     // pages/WorkerPage
     "Follow": "Seguir",
+    "Blocked": "Bloqueado",
+    "ReportContent": "Denunciar Contéudo",
+    "UserReported": "Usuário denunciado",
+    "BlockUser": "Bloquear Usuário",
+    "UnblockUser": "Desbloquear Usuário",
+    "ThisUserReported": "Esse usuário foi denunciado e será verificado nas próximas 24 horas.",
+    "ThisUserBlocked": "Esse usuário foi bloqueado e não será capaz de te achar ou entrar em contato contigo.",
+    "ThisUserUnblocked": "Esse usuário foi desbloqueado.",
 
     //routes.js
     "CreateTask": "Criar Tarefa",

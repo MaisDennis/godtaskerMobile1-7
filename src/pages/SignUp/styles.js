@@ -252,12 +252,6 @@ export const SubmitButton = styled(TouchableOpacity)`
   background-color: #1B2432;
 `;
 
-export const SignUpErrorText = styled.Text`
-  color: #f64C75;
-  font-weight: bold;
-  font-size: 16px;
-`;
-
 export const Title = styled.Text`
   max-width: 80%;
   font-weight: bold;
@@ -265,16 +259,16 @@ export const Title = styled.Text`
   text-align: center;
 `;
 
-export const Wrapper = styled.View`
-  display: flex;
+export const Wrapper = styled.ScrollView`
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: auto;
+  justify-content: center; */
+  height: 100%;
   width: 100%;
   min-width: 320px;
   /* border-radius: 4px; */
   padding-bottom: 24px;
   /* margin: 24px auto; */
-  background-color: #fff;
+  background-color: #f5f;
 `;

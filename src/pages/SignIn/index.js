@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Alert, SafeAreaView } from 'react-native';
+import { Alert, Keyboard ,SafeAreaView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import auth, { sendEmailVerification, getAuth } from '@react-native-firebase/auth';
 import Modal from 'react-native-modal';
@@ -18,8 +18,6 @@ import {
   IconView, ImageLogo, ImageGodtaskerFont,
   Label,
   MarginView02, MarginView04, MarginView08, ModalLabel, ModalView, ModalWrapper,
-  PhoneMask,
-  SubmitButton, SignUpButton, SignUpText, StyledScrollView,
   Title,
   Wrapper,
 } from './styles';
@@ -65,13 +63,13 @@ export default function SignIn({ navigation }) {
           var errorCode = error.code;
           var errorMessage = error.message;
           if (errorCode === 'auth/wrong-password') {
-            Alert.alert('Wrong password. Try "Forgot Password"');
+            Alert.alert(t("WrongPassword"));
           } else if (errorCode === 'auth/user-not-found') {
-            Alert.alert('User Not Found.');
+            Alert.alert(t("UserNotFound"));
           } else if (errorCode === 'auth/invalid-email') {
-            Alert.alert('Invalid e-mail format');
+            Alert.alert(t("InvalidEmailFormat"));
           } else {
-            Alert.alert('Error occurred')
+            Alert.alert(t("ErrorOccured"))
             console.log(error)
           }
       })
@@ -91,7 +89,7 @@ export default function SignIn({ navigation }) {
             )
           );
         } else {
-          Alert.alert('User email is not verified')
+          Alert.alert("UserEmailNotVerified")
         }
         // ...
       } else {
@@ -115,7 +113,7 @@ export default function SignIn({ navigation }) {
       })
       .catch(function(error) {
         // Error occurred. Inspect error.code.
-        Alert.alert(`Error occurred`)
+        Alert.alert(t("ErrorOccured"))
         console.log('Error occurred. Inspect error.code.')
       });
   }
@@ -146,7 +144,7 @@ export default function SignIn({ navigation }) {
       .then(function(user) {
         if (user.user.emailVerified !== true) {
           user.user.sendEmailVerification();
-          Alert.alert(t(EmailSentTo, { email: `${user.user.email}`} ))
+          Alert.alert(t("EmailSentTo", { email: `${user.user.email}`} ))
         }
         else {
           Alert.alert(t('UserAlreadyVerified'))
@@ -179,18 +177,23 @@ export default function SignIn({ navigation }) {
   }
   // -----------------------------------------------------------------------------
   return (
-    <SafeAreaView>
+    // <SafeAreaView>
       <Container>
         <AlignView
           behavior={Platform.OS === "ios" ? "padding" : "position"}
           keyboardVerticalOffset = {Platform.OS === "ios" ? "100" : null }
+          onPress={Keyboard.dismiss}
         >
-          <ImageLogo source={logo} />
+          <Wrapper
+            contentContainerStyle={{ alignItems: 'center', justifyContent: 'center'}}
+          >
+            <ImageLogo source={logo} />
 
-          <ImageGodtaskerFont source={godtaskerFont} />
+            <ImageGodtaskerFont source={godtaskerFont} />
 
-          <Title>{t("DelegateTasks")}</Title>
-          <Wrapper>
+            <Title>{t("DelegateTasks")}</Title>
+
+            <MarginView08/>
             <IconView>
             <EyeButton onPress={handleSecureText}>
                 {secureText
@@ -219,15 +222,14 @@ export default function SignIn({ navigation }) {
                 // icon="unlock"
                 secureTextEntry={secureText}
                 placeholder={t("YourPassword")}
-                returnKeyType="send"
-                onSubmitEditing={handleSubmit}
+                // onSubmitEditing={handleSubmit}
                 value={password}
                 onChangeText={setPassword}
                 // ref={passwordRef}
               />
               <MarginView08/>
               <Button
-                type={'inverted'}
+                // type={'inverted'}
                 loading={loading}
                 onPress={handleSubmit}
               >
@@ -243,22 +245,25 @@ export default function SignIn({ navigation }) {
             <Label>{t("Or")}</Label>
             <MarginView04/>
             <Button
-            type={'submit'}
-            onPress={handleSignUp}
-          >
-            {t("SignUp")}
-          </Button>
-          <MarginView08/>
-          <ForgotPasswordLink
-                onPress={handleToggleResendConfirmation}
-              >
-                <ForgotPasswordText>
-                {t("ResendEmail")}
-                </ForgotPasswordText>
-              </ForgotPasswordLink>
+              type={'submit'}
+              onPress={handleSignUp}
+            >
+              {t("SignUp")}
+            </Button>
+            <MarginView08/>
+            <ForgotPasswordLink
+              onPress={handleToggleResendConfirmation}
+            >
+              <ForgotPasswordText>
+              {t("ResendEmail")}
+              </ForgotPasswordText>
+            </ForgotPasswordLink>
+            <MarginView08/>
+            <MarginView08/>
+            <MarginView08/>
           </Wrapper>
-          <MarginView08/>
 
+        </AlignView>
   {/* ------------------------------------------------------------------------ */}
         <Modal isVisible={toggleForgotPassword}>
           <ModalView>
@@ -275,28 +280,24 @@ export default function SignIn({ navigation }) {
               value={forgotPasswordEmail}
               onChangeText={setForgotPasswordEmail}
             />
-            {/* ----------- */}
-            <MarginView04/>
-            <HrLine/>
-            <MarginView04/>
-            {/* ----------- */}
-            <ButtonWrapper>
-            <Button
-              type={'submit'}
-              small={true}
-              onPress={() => handleForgotPassword()}
-            >
-              {t("Send")}
-            </Button>
-            <Button
-              type={'inverted'}
-              small={true}
-              onPress={handleToggleForgotPassword}
-            >
-              {t("Back")}
-            </Button>
-            </ButtonWrapper>
             <MarginView08/>
+            <ButtonWrapper>
+              <Button
+                type={'inverted'}
+                // small={true}
+                onPress={handleToggleForgotPassword}
+              >
+                {t("Back")}
+              </Button>
+              <MarginView04/>
+              <Button
+                type={'submit'}
+                // small={true}
+                onPress={() => handleForgotPassword()}
+              >
+                {t("Send")}
+              </Button>
+            </ButtonWrapper>
             <MarginView08/>
             </ModalWrapper>
           </ModalView>
@@ -332,34 +333,29 @@ export default function SignIn({ navigation }) {
               onChangeText={setResendConfirmationPassword}
               // ref={passwordRef}
             />
-            {/* ----------- */}
-            <MarginView04/>
-            <HrLine/>
-            <MarginView04/>
-            {/* ----------- */}
-            <ButtonWrapper>
-            <Button
-              type={'submit'}
-              small={true}
-              onPress={() => handleResendConfirmation()}
-            >
-              {t('Send')}
-            </Button>
-            <Button
-              type={'inverted'}
-              small={true}
-              onPress={handleToggleResendConfirmation}
-            >
-              {t('Back')}
-            </Button>
-            </ButtonWrapper>
             <MarginView08/>
+            <ButtonWrapper>
+              <Button
+                type={'inverted'}
+                onPress={handleToggleResendConfirmation}
+              >
+                {t('Back')}
+              </Button>
+              <MarginView04/>
+              <Button
+                type={'submit'}
+                onPress={() => handleResendConfirmation()}
+              >
+                {t('Send')}
+              </Button>
+            </ButtonWrapper>
+
             <MarginView08/>
             </ModalWrapper>
           </ModalView>
         </Modal>
-        </AlignView>
+
       </Container>
-    </SafeAreaView>
+    // </SafeAreaView>
   );
 }

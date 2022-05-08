@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { format, parseISO, getDay } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
 import firestore from '@react-native-firebase/firestore';
 import defaultAvatar from '~/assets/defaultAvatar.png';
+import { useTranslation } from 'react-i18next';
 // -----------------------------------------------------------------------------
 import {
   BodyView, BodyWrapper,
@@ -19,34 +20,42 @@ import { updateForwardMessage, updateChatInfo } from '~/store/modules/message/ac
 import api from '~/services/api';
 
 export default function Messages({ data, navigation }) {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const forwardValue = useSelector(state => state.message.forward_message.message);
   const updatedMessage = useSelector(state => state.message.profile)
-  const profileUserId = useSelector(state => state.user.profile.id)
+  const profileUserName = useSelector(state => state.user.profile.user_name)
+  const profileUserEmail = useSelector(state => state.user.profile.email)
+
   const [resetConversation, setResetConversation] = useState();
   const [messageBell, setMessageBell] = useState();
   const [lastMessage, setLastMessage] = useState();
   const [lastMessageTime, setLastMessageTime] = useState();
 
-  const user_id = data.user_id;
-  const worker_id = data.worker_id;
   const chat_id = data.chat_id;
-  const userData = data.user.id === profileUserId ? data.user : data.worker;
-  const workerData = data.user.id === profileUserId ? data.worker : data.user;
-  const user_name = userData.user_name;
-  const worker_name = workerData.worker_name;
-  const worker_photo = workerData.avatar;
+  const user_id = data.user_id;
+  const user_email = data.user.email;
 
-  const userIsWorker = profileUserId === worker_id;
+  const worker_id = data.worker_id;
+  const worker_email = data.worker.email;
+
+  const userData = data.user.email === profileUserEmail ? data.user : data.worker;
+  const workerData = data.user.email === profileUserEmail ? data.worker : data.user;
+
+  const userIsWorker = profileUserEmail === worker_email;
 
   const messagesRef = firestore().collection(`messages/chat/${chat_id}`)
 
   const formattedMessageDate = fdate =>
   fdate == null
     ? ''
-    : getDay(parseISO(JSON.parse(fdate))) === getDay(new Date())
+    : i18n.language === 'en'
+      ? getDay(parseISO(JSON.parse(fdate))) === getDay(new Date())
         ? format(parseISO(JSON.parse(fdate)), "'Today'   h:mm aaa", { locale: enUS })
         : format(parseISO(JSON.parse(fdate)), "MMM'/'dd'/'yy   h:mm aaa", { locale: enUS })
+      : getDay(parseISO(JSON.parse(fdate))) === getDay(new Date())
+          ? format(parseISO(JSON.parse(fdate)), "'Hoje'   HH:mm", { locale: ptBR })
+          : format(parseISO(JSON.parse(fdate)), "dd'/'MMM'/'yy   HH:mm", { locale: ptBR })
 
   useEffect(() => {
     getMessages()
@@ -56,36 +65,34 @@ export default function Messages({ data, navigation }) {
     const unsubscribe = messagesRef
       .orderBy('createdAt')
       .onSnapshot((querySnapshot) => {
-        const data = querySnapshot.docs.map(d => ({
+        const firestoreData = querySnapshot.docs.map(d => ({
           ...d.data(),
         }));
-        setMessageBell(data)
-        let messagesLength = data.length
+        setMessageBell(firestoreData)
+        let messagesLength = firestoreData.length
 
-        const last_message = data[0]
-          ? data[messagesLength-1].message
+        const last_message = firestoreData[0]
+          ? firestoreData[messagesLength-1].message
           : null
         setLastMessage(last_message)
 
-        const last_message_time = data[0]
-          ? data[messagesLength-1].timestamp
+        const last_message_time = firestoreData[0]
+          ? firestoreData[messagesLength-1].timestamp
           : null
 
         setLastMessageTime(formattedMessageDate(last_message_time))
-
-
       })
       return unsubscribe;
   }
 
   async function handleMessageConversation() {
-    const response = await api.get('/messages', {
+    const response = await api.get('/messages/user', {
       params: {
-        user_id: profileUserId,
-        worker_id: userIsWorker ? user_id : worker_id,
+          user_email: profileUserEmail,
+          worker_email: profileUserEmail === user_email ? worker_email : user_email,
       },
     })
-
+    console.log(response.data)
     messagesRef
       .orderBy('createdAt')
       .get().then(resp => {
@@ -101,18 +108,22 @@ export default function Messages({ data, navigation }) {
     if (forwardValue) {
       const message_id = Math.floor(Math.random() * 1000000)
       newMessage = {
-        createdAt: firestore.FieldValue.serverTimestamp(),
-        forward_message: true,
         id: message_id,
-        message: forwardValue,
-        receiver_id: response.data.inverted ? user_id : worker_id,
+        chat_id: chat_id,
+        forward_message: true,
         reply_message: '',
         reply_sender: '',
-        sender: `${response.data.inverted ? "worker" : "user"}`,
+        message: forwardValue,
+        createdAt: firestore.FieldValue.serverTimestamp(),
+
+        sender_email: profileUserEmail,
+        sender_name: profileUserName,
+        receiver_email: workerData.email,
+
         timestamp: JSON.stringify(new Date()),
-        user_read: response.data.inverted ? false : true,
+        user_read: profileUserEmail === workerData.email ? true : false,
+        worker_read: profileUserEmail === workerData.email ? false : true,
         visible: true,
-        worker_read: response.data.inverted ? true : false,
       }
 
       await messagesRef
@@ -125,38 +136,36 @@ export default function Messages({ data, navigation }) {
       dispatch(updateForwardMessage(null));
     }
 
-    if(response.data.inverted) {
-      navigation.navigate('MessagesConversationPage', {
-        // id: data.id,
-        user_id: worker_id,
-        user_name: worker_name,
-        userData: workerData,
-        worker_id: user_id,
-        worker_name: user_name,
-        workerData: userData,
-        avatar: userData.avatar,
-        chat_id: chat_id,
-        inverted: response.data.inverted,
-      });
+    // if(response.data.inverted) {
+    //   navigation.navigate('MessagesConversationPage', {
+    //     userData: userData,
+    //     workerData: userData,
 
-      dispatch(updateChatInfo(workerData, userData, response.data.inverted,));
-      return
-    }
+    //     chat_id: chat_id,
+    //     inverted: response.data.inverted,
+    //   });
+
+    //   dispatch(updateChatInfo(
+    //     workerData,
+    //     userData,
+    //     response.data.inverted,
+    //   ));
+    //   return
+    // }
 
     navigation.navigate('MessagesConversationPage', {
-      // id: data.id,
-      user_id: user_id,
-      user_name: user_name,
       userData: userData,
-      worker_id: worker_id,
-      worker_name: worker_name,
       workerData: workerData,
+
       chat_id: chat_id,
-      avatar: worker_photo,
       inverted: response.data.inverted,
     });
 
-    dispatch(updateChatInfo(userData, workerData, response.data.inverted));
+    dispatch(updateChatInfo(
+      userData,
+      workerData,
+      response.data.inverted
+    ));
     setResetConversation();
     setMessageBell(0)
   }
@@ -276,7 +285,7 @@ export default function Messages({ data, navigation }) {
               )
               : (
                 <>
-                  <MessageIcon name="message-circle">
+                  <MessageIcon name="message-square">
                     <UnreadMessageCountText>{hasUnreadUser(messageBell)}</UnreadMessageCountText>
                   </MessageIcon>
                 </>

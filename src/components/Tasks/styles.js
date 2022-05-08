@@ -45,9 +45,10 @@ export const BackIcon = styled(Icon)`
 `;
 
 export const BackIcon02 = styled(Icon)`
-  padding-left: ${Platform.OS === 'ios' ? '8px' : '24px'};
+  /* padding-left: ${Platform.OS === 'ios' ? '8px' : '24px'}; */
   color: #18A0FB;
-  /* background-color: #f00; */
+  height: auto;
+  /* background-color: #ee3; */
 `;
 
 export const BackText = styled.Text`
@@ -98,8 +99,17 @@ export const ButtonForModal = styled(TouchableOpacity)`
   justify-content: center;
   height: 40px;
   width: auto;
-  /* border-radius: 4px; */
-  /* margin: 0 auto; */
+  /* background-color: #33e; */
+`;
+
+export const ButtonForModalRight = styled(TouchableOpacity)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: auto;
+  margin-left: ${Platform.OS === 'ios' ? '12px' : '32px'};
   /* background-color: #f33; */
 `;
 
@@ -107,6 +117,7 @@ export const ButtonIcon = styled(Icon)`
 font-size: ${Platform.OS === 'ios' ? '23px' : '21px'};
 padding: 4px;
 color: #18A0FB;
+background-color: #ee3;
 `;
 
 export const ButtonWrapper = styled.View`
@@ -115,6 +126,15 @@ export const ButtonWrapper = styled.View`
   flex-direction: row;
   height: auto;
   width: 100%;
+  /* background-color: #fe2; */
+`;
+
+export const ButtonWrapperConfirm = styled.View`
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  height: auto;
+  width: 90%;
   /* background-color: #fe2; */
 `;
 
@@ -194,10 +214,11 @@ export const DescriptionSpan = styled.Text`
   font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
   text-align: justify;
   line-height: 20px;
-  max-width: 85%;
+  max-width: 80%;
   margin: 4px;
   margin-right: 8px;
   color: #1B2432;
+  /* background-color: #e4ee; */
 `;
 
 export const DescriptionSpan02 = styled.Text`
@@ -214,7 +235,7 @@ export const DescriptionSpan02 = styled.Text`
 
 export const DueTimeView = styled.View`
   border-radius: 4px;
-  padding: 0 12px;
+  padding: 0 4px;
   background: ${props => props.pastDueDate == true ? '#EBA5A5' : '#D0ECE3'};
 `;
 
@@ -254,9 +275,10 @@ export const ImageView = styled.View`
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: center;
   min-height: 36px;
-  width: 100%;
-  /* padding: 4px; */
+  width: 90%;
+  height: 270px;
   /* background-color: #F5F5; */
 `;
 
@@ -267,8 +289,9 @@ export const ImageWrapper = styled.View`
 `;
 
 export const Image = styled.Image`
-  height: 300px;
-  width: 300px;
+  height: 100%;
+  width: 100%;
+
   border-width: 1px;
   border-color: #ccc;
   border-radius: 4px;
@@ -287,8 +310,11 @@ export const Label = styled.Text`
   font-weight: bold;
   font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
   font-family: ${Platform.OS === 'ios' ? 'system font' : primaryFont};
+  text-align: center;
   margin-right: 8px;
+  /* max-width: 60px; */
   color: #1B2432;
+  /* background-color: #f3c775; */
 `;
 
 export const LabelInitiated = styled.Text`
@@ -298,6 +324,7 @@ export const LabelInitiated = styled.Text`
   margin-right: 8px;
   max-width: 60px;
   color: #19AE7C;
+  border-radius: 4px;
 `;
 
 export const LabelEnded = styled.Text`
@@ -310,7 +337,7 @@ export const LabelEnded = styled.Text`
 `;
 
 export const LastMessageText = styled.Text`
-  font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
+  font-size: ${Platform.OS === 'ios' ? '13px' : '11px'};
   font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
   padding: 0 4px;
   /* background-color: #f5f5; */
@@ -319,10 +346,12 @@ export const LastMessageText = styled.Text`
 export const LastMessageTimeText = styled.Text`
   font-size: ${Platform.OS === 'ios' ? '11px' : '9px'};
   font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
+  text-align: center;
   color: #666;
 `;
 
 export const LastMessageTimeView = styled.View`
+  /* background-color: #e22; */
 `;
 
 export const LastMessageView = styled.View`
@@ -409,7 +438,7 @@ export const ModalHeaderCenter = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  width: 20%;
+  width: 0%;
   /* background-color: #999; */
 `;
 
@@ -418,7 +447,7 @@ export const ModalHeaderLeft = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  width: 40%;
+  width: 50%;
   /* background-color: #ccc; */
 `;
 
@@ -427,7 +456,7 @@ export const ModalHeaderRight = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  width: 40%;
+  width: 50%;
   /* background-color: #666; */
 `;
 
@@ -480,7 +509,7 @@ export const RejectTaskInput = styled.TextInput`
   font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
   font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
   height: auto;
-  width: 85%;
+  width: 90%;
   padding: 12px;
   margin: 0px auto;
   border-radius: 4px;
@@ -500,7 +529,7 @@ export const RightView = styled.View`
 
 export const StartTimeView = styled.View`
 border-radius: 4px;
-padding: 0 12px;
+padding: 0 4px;
 background: ${props => props.initiated === null ? '#ddd' : '#D0ECE3'};
 `;
 
@@ -621,6 +650,17 @@ export const ToText = styled.Text`
   font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
   max-width: 80px;
   margin-right: 16px;
+  color: #1B2432;
+
+  /* background-color: #4433ee; */
+`;
+
+export const ToTextModal = styled.Text`
+  font-weight: normal;
+  font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
+  font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
+  /* max-width: 80px; */
+  /* margin-right: 16px; */
   color: #1B2432;
 
   /* background-color: #4433ee; */

@@ -5,6 +5,7 @@ import SplashScreen from 'react-native-splash-screen';
 import messaging from '@react-native-firebase/messaging';
 import PushNotification from "react-native-push-notification";
 import { useTranslation } from 'react-i18next';
+import * as RNLocalize from 'react-native-localize';
 // -----------------------------------------------------------------------------
 import Routes from './routes';
 import api from '~/services/api';
@@ -19,6 +20,7 @@ export default function App() {
 
   useEffect(() => {
     SplashScreen.hide();
+    // console.log(RNLocalize.getLocales()[0].languageCode);
     requestUserPermission();
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       // console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));

@@ -2,7 +2,6 @@ import produce from 'immer';
 // -----------------------------------------------------------------------------
 const INITIAL_STATE = {
   tasks: {},
-  // user_tasks: {},
 };
 // -----------------------------------------------------------------------------
 export default function message(state= INITIAL_STATE, action) {
@@ -12,10 +11,6 @@ export default function message(state= INITIAL_STATE, action) {
         draft.tasks = action.payload;
         break;
       }
-      // case '@task/UPDATE_USER_TASKS': {
-      //   draft.user_tasks = action.payload;
-      //   break;
-      // }
       default:
     }
   });

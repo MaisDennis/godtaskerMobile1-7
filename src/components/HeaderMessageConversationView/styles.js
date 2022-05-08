@@ -7,7 +7,7 @@ export const AlignView = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* width: 40%; */
+  width: 90%;
   height: 100%;
   background-color: #fff;
   /* background: #4433ee; */
@@ -52,5 +52,21 @@ export const HeaderImageBackgroundView = styled.View`
   border-radius: 44px;
   border-width: 1px;
   border-color: #18A0FB;
+  /* background-color: #4ee; */
+`;
+
+export const HeaderLogo = styled.Image`
+height: 30px;
+width: 32px;
+/* background: #f00; */
+`;
+
+export const RightView = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+  right: -16px;
   /* background-color: #4ee; */
 `;

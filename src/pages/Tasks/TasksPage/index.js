@@ -46,6 +46,7 @@ export default function TaskPage({ navigation }) {
     let response = await api.get(`tasks/unfinished`, {
       params: { workerID, nameFilter },
     });
+
     setTasks(response.data);
     setTaskConditionIndex(1);
   }

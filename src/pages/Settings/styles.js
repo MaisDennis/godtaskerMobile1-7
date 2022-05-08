@@ -41,6 +41,18 @@ export const ButtonForModal = styled(TouchableOpacity)`
   /* background-color: #f33; */
 `;
 
+export const ButtonWrapper = styled.View`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  /* padding: 16px 16px 8px;
+  border-width: 2px;
+  border-radius: 4px;
+  border-color: #eee; */
+  /* background-color: #43e; */
+`;
+
 
 export const Container = styled.SafeAreaView`
   height: 100%;
@@ -50,7 +62,7 @@ export const Container = styled.SafeAreaView`
 export const DownloadText = styled.Text`
   font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
   font-size: ${Platform.OS === 'ios' ? '16px' : '14px'};
-  text-align: justify;
+  text-align: center;
   /* background-color: #666; */
 `;
 
@@ -77,6 +89,27 @@ export const FormScrollView = styled.ScrollView.attrs({
   /* background-color: #f5f; */
 `;
 
+export const HrLine = styled.View`
+  width: 100%;
+  border-width: 0.5px;
+  border-color: #ddd;
+  margin: 0px auto;
+`;
+
+export const ItemWrapperView = styled.View`
+  width: 80%;
+  height: auto;
+  /* background-color: #3ee; */
+`;
+
+export const LabelText = styled.Text`
+  font-weight: bold;
+  font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
+  font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
+  margin-right: 8px;
+  color: #1B2432;
+`;
+
 export const MarginView02 = styled.View`
   width: 100%;
   margin: 2px 0;
@@ -96,6 +129,8 @@ export const ModalTitleText = styled.Text`
   font-family: ${Platform.OS === 'ios' ? 'system font' : primaryFont};
   /* font-weight: bold; */
   font-size: ${Platform.OS === 'ios' ? '16px' : '14px'};
+  width: 90%;
+  text-align: center;
   margin: 0 auto;
   color: #1B2432;
   /* background-color: #f00; */
@@ -161,6 +196,79 @@ export const QRImage = styled.Image`
   /* margin: 8px; */
   /* border-radius: 48px; */
   background-color: #f5f5f5;
+`;
+
+export const RadioButtonLabel = styled.Text`
+  /* width: 90%; */
+  font-size: ${Platform.OS === 'ios' ? '15px' : '13px'};
+  font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
+`;
+
+export const RadioButtonLabelText = styled.Text`
+  max-width: 100%;
+  font-weight: bold;
+  font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
+  color: #1B2432;
+`;
+
+export const RadioButtonOuter = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 16px;
+  border-width: 1px;
+  border-color: #ccc;
+  /* margin-top: 8px; */
+  background-color: #eee;
+
+`;
+export const RadioButtonInner0 = styled.View`
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  background-color: ${props => props.switch === 'en' ? '#1B2432' : '#eee'};
+`;
+export const RadioButtonInner1 = styled.View`
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  background-color: ${props => props.switch === 'pt' ? '#1B2432' : '#eee'};
+`;
+export const RadioButtonInner2 = styled.View`
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  background-color: ${props => props.switch === 2 ? '#1B2432' : '#eee'};
+`;
+export const RadioButtonInner3 = styled.View`
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  background-color: ${props => props.switch === 3 ? '#1B2432' : '#eee'};
+`;
+export const RadioButtonInner4 = styled.View`
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  background-color: ${props => props.switch === 4 ? '#1B2432' : '#eee'};
+`;
+
+export const RadioButtonView = styled.View`
+  height: auto;
+  /* background-color: #4ee; */
+`;
+
+export const RadioButtonTag = styled(TouchableOpacity)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  /* background-color: #999; */
 `;
 
 export const SubHrView = styled.View`

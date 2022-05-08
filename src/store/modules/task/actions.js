@@ -4,9 +4,3 @@ export function updateTasks(data) {
     payload: { data },
   };
 }
-// export function updateUserTasks(data) {
-//   return {
-//     type: '@task/UPDATE_USER_TASKS',
-//     payload: { data },
-//   };
-// }

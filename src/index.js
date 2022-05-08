@@ -8,13 +8,13 @@ import { store, persistor } from './store';
 import messaging from '@react-native-firebase/messaging';
 // import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification, {Importance} from "react-native-push-notification";
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 // -----------------------------------------------------------------------------
 import App from './App';
 import Button from '~/components/Button'
 // -----------------------------------------------------------------------------
 export default function Index() {
-  const {t, i18n} = useTranslation()
+  // const {t, i18n} = useTranslation();
   messaging().setBackgroundMessageHandler(async remoteMessage => {
     console.log('Message handled in the background!', remoteMessage);
     // PushNotification.localNotification({
@@ -85,9 +85,9 @@ export default function Index() {
               barStyle="dark-content"
             />
             <App/>
-            <Button
+            {/* <Button
               onPress={() => {i18n.changeLanguage('pt')}}
-            >{t('SelectLanguage')}</Button>
+            >{t('SelectLanguage')}</Button> */}
 
           {/* </PaperProvider> */}
         </PersistGate>

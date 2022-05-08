@@ -12,7 +12,7 @@ export function* signIn({ payload }) {
   try {
     const {
       email,
-      password
+      password,
     } = payload;
 
     const response = yield call(api.post, 'sessions', {
@@ -21,7 +21,7 @@ export function* signIn({ payload }) {
 
     const { token, user } = response.data;
 
-    console.log(response.data)
+    // console.log(response.data)
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
@@ -39,8 +39,8 @@ export function* signIn({ payload }) {
 
   } catch (error) {
     yield put(signFailure());
-    // console.log(error)
-    Alert.alert('Invalid Data. Please check password')
+    console.log(error)
+
   }
 }
 // -----------------------------------------------------------------------------
@@ -53,60 +53,23 @@ export function* signIn({ payload }) {
 // }
 // -----------------------------------------------------------------------------
 export function* signUp({ payload }) {
-  try {
-    const {
-      user_name,
-      password,
-      email,
-    } = payload;
 
-    // console.log(payload)
+  const {
+    user_name,
+    password,
+    email,
+    bio,
+  } = payload;
 
-    const bio = `Hello, my Username is ${user_name}`
-
-    const response = yield call(api.post, 'users', {
-      user_name,
-      worker_name: user_name,
-      password,
-      email,
-      bio,
-      points: 0,
-      subscriber: false
-    })
-
-    // console.log(response.config.data.email)
-
-    if (response.data.code === 'auth/email-already-in-use') {
-      // console.log(response.data.code)
-      // yield put(signUpFailure(response.data.message));
-      Alert.alert(
-        'e-mail already in use',
-        `${response.data.message}`
-      )
-
-    } else if (response.data.code === 'auth/invalid-email') {
-      // console.log(response.data.code)
-      // yield put(signUpFailure(response.data.message));
-      Alert.alert(
-        'Invalid e-mail',
-        `${response.data.message}`
-      )
-    } else {
-      const user = user_name;
-      yield put(signUpSuccess(user));
-      Alert.alert(
-        'Thank you for signing up!',
-        `An e-mail has been sent to ${email}. Please confirm your e-mail to activate account.`
-      )
-    }
-  }
-  catch (error) {
-    console.log(error)
-    Alert.alert(
-      'Error: Sign up failed',
-      'e-mail address or phonenumber may already exist. Please contact support.'
-    )
-  }
+  const response = yield call(api.post, 'users', {
+    user_name,
+    worker_name: user_name,
+    password,
+    email,
+    bio,
+    points: 0,
+    subscriber: false
+  })
 }
 
 // -----------------------------------------------------------------------------

@@ -38,7 +38,7 @@ color: #fff;
 // `;
 
 export const Container = styled.SafeAreaView`
-  background-color: ${Platform.OS === 'ios' ? '#ddd' : '#f5f5f5'};
+  background-color: #fff;
 `;
 
 export const Form = styled.ScrollView`

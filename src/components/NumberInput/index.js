@@ -13,7 +13,10 @@ const styles = StyleSheet.create({
     },
 })
 
-export default function NumberInput({ numberInputValue, setNumberInputValue }) {
+export default function NumberInput({
+  numberInputValue, setNumberInputValue, focusColor, worker
+}) {
+  console.log(focusColor)
   function handleMinus() {
     if (numberInputValue === 0) {
       return
@@ -36,23 +39,23 @@ export default function NumberInput({ numberInputValue, setNumberInputValue }) {
   }
   // ---------------------------------------------------------------------------
   return (
-    <Container>
-      <DropShadow style={styles.shadowProp}>
+    <Container focusColor={focusColor} worker={worker}>
+      {/* <DropShadow style={styles.shadowProp}> */}
         <MinusButton onPress={handleMinus}>
-          <NumberIcon name="minus"/>
+          <NumberIcon name="minus" focusColor={focusColor} worker={worker}/>
         </MinusButton>
-      </DropShadow>
+      {/* </DropShadow> */}
 
       <Input
         value={numberInputValue}
         onChangeText={setNumberInputValue}
 
       >{numberInputValue}</Input>
-      <DropShadow style={styles.shadowProp}>
+      {/* <DropShadow style={styles.shadowProp}> */}
         <PlusButton onPress={handlePlus}>
-          <NumberIcon name="plus"/>
+          <NumberIcon name="plus" focusColor={focusColor} worker={worker}/>
         </PlusButton>
-      </DropShadow>
+      {/* </DropShadow> */}
 
     </Container>
   )

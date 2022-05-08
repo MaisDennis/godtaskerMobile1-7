@@ -38,15 +38,28 @@ export const BioText = styled.Text`
   margin: 4px 8px;
 `;
 
+export const BlockedButton = styled(TouchableOpacity)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 28px;
+  border-radius: 16px;
+  margin: 0px 8px 0 0;
+  background-color: #1B2432;
+  /* background-color: #4433ee; */
+`;
+
 export const BlockLarge = styled.View`
   display: flex;
   flex-direction: column;
   height: auto;
   width: 100%;
-  /* border-radius: 4px;
-  border-width: 1px;
-  border-color: #1B2432; */
-  /* padding: 8px; */
+  border-radius: 4px;
+  border-width: 2px;
+  border-color: #ccc;
+  padding: 8px;
   margin: 0;
   /* background-color: #4ee; */
 `;
@@ -107,17 +120,46 @@ export const BlockSmallBoss = styled.View`
   /* background-color: #ee2; */
 `;
 
+export const BlockSmallDisplayed = styled.View`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 23%;
+  height: 60px;
+  border-radius: 4px;
+  border-width: 2px;
+  border-color: #D4D3FF;
+  margin: 0 1%;
+  margin-bottom: 8px;
+  padding: 8px 0;
+  background-color: #D4D3FF;
+`;
+
+export const BlockSmallService = styled.View`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 23%;
+  height: 60px;
+  border-radius: 4px;
+  border-width: 2px;
+  border-color: #D0ECE3;
+  margin: 0 1%;
+  margin-bottom: 8px;
+  padding: 8px 0;
+  background-color: #D0ECE3;
+`;
+
 export const BlockSmallWorker = styled.View`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  height: auto;
+  width: 23%;
+  height: 100%;
   border-radius: 4px;
   border-width: 2px;
   border-color: #334466;
   margin: 0px;
   padding: 8px 0;
-  /* background-color: #f5f5f5; */
   /* background-color: #ee2; */
 `;
 
@@ -139,6 +181,18 @@ export const ButtonCancelView = styled(TouchableOpacity)`
   padding: 0 16px;
   /* background-color: #1B2432; */
   background-color: #403F4C;
+`;
+
+export const ButtonMuted = styled.View`
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 100%;
+  border-radius: 4px;
+  margin: 0 auto;
+  border-width: 2px;
+  border-color: #ccc;
+  /* background-color: #1B2432; */
 `;
 
 export const ButtonView = styled(TouchableOpacity)`
@@ -212,7 +266,7 @@ export const FollowButton = styled(TouchableOpacity)`
   width: 96px;
   height: 28px;
   border-radius: 16px;
-  margin: 0px 8px 0 0;
+  margin: 0px;
   background-color: #18A0FB;
   /* background-color: #4433ee; */
 `;
@@ -233,7 +287,7 @@ export const FollowingButton = styled(TouchableOpacity)`
   border-radius: 16px;
   border-width: 2px;
   border-color: #18A0FB;
-  margin: 0px 8px 0 0;
+  margin: 0;
   /* background-color: #ee4; */
 `;
 
@@ -371,6 +425,15 @@ export const LabelBoldBoss2 = styled.Text`
   /* background-color: #999; */
 `;
 
+export const LabelBoldDisplayed = styled.Text`
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  margin: 0 10%;
+  color: #334466;
+  /* background-color: #4433ee; */
+`;
+
 export const LabelBoldRed = styled.Text`
   width: 24px;
   font-weight: bold;
@@ -379,6 +442,15 @@ export const LabelBoldRed = styled.Text`
   margin: 0 auto;
   color: #F64C75;
   /* background-color: #999; */
+`;
+
+export const LabelBoldService = styled.Text`
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  margin: 0 10%;
+  color: #009966;
+  /* background-color: #4433ee; */
 `;
 
 export const LabelBoldSocialMedia = styled.Text`
@@ -408,6 +480,14 @@ export const LabelBoldWorker2 = styled.Text`
   margin: 0 auto;
   color: #334466;
   /* background-color: #999; */
+`;
+
+export const LabelMild = styled.Text`
+  text-align: center;
+  font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
+  margin: 4px 16px;
+  color: #999;
+  /* background-color: #4ee; */
 `;
 
 export const LabelNormal = styled.Text`
@@ -510,7 +590,20 @@ export const LinkedInWrapper = styled.View`
   flex-direction: row;
   align-items: center;
   height: auto;
+  width: 100%;
   /* background-color: #ff0; */
+`;
+
+export const ListButton = styled(TouchableOpacity)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 28px;
+  border-radius: 16px;
+  margin: 0 8px 0 24px;
+  /* background-color: #4433ee; */
 `;
 
 export const MarginView02 = styled.View`
@@ -526,6 +619,45 @@ export const MarginView04 = styled.View`
 export const MarginView08 = styled.View`
   width: 100%;
   margin: 8px 0;
+`;
+
+export const Menu = styled.View`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 36px;
+  width: 50%;
+  right: 8px;
+  border-width: 2px;
+  border-radius: 4px;
+  border-color: #1B2432;
+  background-color: #fff;
+  z-index: 2;
+`;
+
+export const MenuButton = styled(TouchableOpacity)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48px;
+  /* background-color: #4433ee; */
+`;
+
+export const MenuLabel = styled.Text`
+  text-align: center;
+  font-weight: bold;
+  font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
+  color: #1B2432;
+  /* background-color: #4ee; */
+`;
+
+export const MenuLabelMuted = styled.Text`
+  font-weight: bold;
+  font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
+  color: #ccc;
 `;
 
 export const MessageButton = styled(TouchableOpacity)`
@@ -573,7 +705,7 @@ export const ModalWrapper01 = styled.ScrollView`
   display: flex;
   flex-direction: column;
 
-  width: 85%;
+  width: 90%;
   height: auto;
   /* padding: 24px 12px 0; */
   border-radius: 8px;
@@ -698,8 +830,20 @@ export const StatusView = styled.View`
   height: auto;
   width: 90%;
   margin: 0;
+  /* background-color: #f00; */
+`;
+
+export const ServiceView = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  height: auto;
+  width: 90%;
+  margin: 0;
   /* background-color: #f5f5f5; */
-    /* background-color: #f00; */
+  /* background-color: #ee3; */
+
 `;
 
 export const UserImage = styled.Image`

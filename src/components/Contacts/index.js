@@ -19,15 +19,19 @@ const taskConditionIndex = 1;
   function handleWorkerPage() {
     navigation.navigate('WorkerPage', {
       id: data.id,
+      worker_name: data.worker_name,
+      email: data.email,
+
       first_name: data.first_name,
       last_name: data.last_name,
-      worker_name: data.worker_name,
       department: data.department,
       points: data.points,
       instagram: data.instagram,
       linkedin: data.linkedin,
       bio: data.bio,
-      avatar: data.avatar
+      avatar: data.avatar,
+      blocked_list: data.blocked_list,
+      flagged_list: data.flagged_list,
     })
   }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Modal from 'react-native-modal';
+import Clipboard from '@react-native-community/clipboard';
 import { useTranslation } from 'react-i18next';
 // -----------------------------------------------------------------------------
 import {
@@ -12,7 +13,7 @@ import {
   Header, HeaderImage, HeaderTabView, HeaderTouchable,
   List,
   MarginView02, MarginView04, MarginView08,
-  ModalHeaderCenter, ModalHeaderLeft, ModalHeaderRight, ModalHeaderView, ModalTitleText,
+  ModalHeaderCenter, ModalHeaderLeft, ModalHeaderRight, ModalHeaderView, ModalTitleText, ModalView,
   QRImage,
   SpaceView,
   Title,
@@ -22,16 +23,18 @@ import {
 import Button from '~/components/Button';
 import Contacts from '~/components/Contacts'
 import logo from '~/assets/detective/detective_remake.png'
-import QR from '~/assets/cardemon.png';
+import QR from '~/assets/googlePlay.png';
 import SearchBar from '~/components/Searchbar'
 import api from '~/services/api';
 // -----------------------------------------------------------------------------
 export default function ContactsPage({ navigation }) {
   const { t, i18n } = useTranslation();
   const contacts_update = useSelector( state => state.contact.profile)
+  const user_email = useSelector(state => state.user.profile.email);
   const [contacts, setContacts] = useState([]);
   const [inputState, setInputState] = useState('');
   const [listState, setListState] = useState(1);
+  const [toggleCopyText, setToggleCopyText] = useState(false);
   const [toggleModal, setToggleModal] = useState(false);
 
   useEffect(() => {
@@ -43,14 +46,25 @@ export default function ContactsPage({ navigation }) {
     const response = await api.get('/workers', {
       params: {
         nameFilter: `${input}`,
+        user_email: user_email,
       }
     })
     setContacts(response.data)
+    // console.log(response.data)
     setListState(1);
   }
 
   function handleToggleModalShare() {
     setToggleModal(!toggleModal)
+  }
+
+  function handleToggleCopyText() {
+    setToggleCopyText(!toggleCopyText)
+    Clipboard.setString(t('IWouldLikeTo'))
+  }
+
+  function handleToggleCopyTextConfirm() {
+    setToggleCopyText(!toggleCopyText)
   }
 
   function handleClubs() {
@@ -77,11 +91,13 @@ export default function ContactsPage({ navigation }) {
         </HeaderTouchable>
       </Header>
       <HeaderTabView>
-      <UpperTabView>
-      <UpperTabText
-        onPress={handleToggleModalShare}
-      >{t('InviteSomeone')}</UpperTabText>
-      </UpperTabView>
+        <UpperTabView>
+          <UpperTabText
+            onPress={handleToggleModalShare}
+          >
+            {t('InviteSomeone')}
+          </UpperTabText>
+        </UpperTabView>
       </HeaderTabView>
       { contacts == ''
         ? (
@@ -97,10 +113,6 @@ export default function ContactsPage({ navigation }) {
                 data={item}
                 navigation={navigation}
               />
-              // <SafeAreaView
-              //   key={item.phonenumber}
-              //   data={item}
-              // ><Text>{item.phonenumber}</Text></SafeAreaView>
             )}
           />
         )
@@ -139,11 +151,9 @@ export default function ContactsPage({ navigation }) {
             </DownloadText>
             <MarginView08/>
             <Button
-              onPress={() => {
-                Clipboard.setString(t("IWouldLikeTo"))
-              }}
-              small={true}
-              type='inverted'
+              onPress={handleToggleCopyText}
+              // small={true}
+              type='submit'
             >
               {t('CopyText')}
             </Button>
@@ -161,17 +171,35 @@ export default function ContactsPage({ navigation }) {
               source={QR}
             />
           </DownloadView>
-          <MarginView08/>
+          {/* <MarginView08/>
           <DownloadView>
             <MarginView04/>
             <ModalTitleText>iOS App Store:</ModalTitleText>
             <QRImage
               source={QR}
             />
-          </DownloadView>
+          </DownloadView> */}
           <MarginView08/>
           <MarginView04/>
         </FormScrollView>
+      </Modal>
+
+      <Modal isVisible={toggleCopyText}>
+        <ModalView>
+          <MarginView04/>
+          <DownloadText>
+            {t('TextHasBeenCopied')}
+          </DownloadText>
+          <MarginView04/>
+          <Button
+            onPress={handleToggleCopyTextConfirm}
+            small={true}
+            // type='inverted'
+          >
+            OK
+          </Button>
+          <MarginView08/>
+        </ModalView>
       </Modal>
     </Container>
   )

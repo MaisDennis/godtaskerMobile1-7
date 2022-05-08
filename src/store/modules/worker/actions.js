@@ -6,3 +6,10 @@ export function signInSuccess(worker) {
     payload: { workerPhoneNumber, workerData },
   };
 };
+
+export function updateWorkers(data) {
+  return {
+    type: '@message/UPDATE_WORKERS',
+    payload: { data },
+  };
+}

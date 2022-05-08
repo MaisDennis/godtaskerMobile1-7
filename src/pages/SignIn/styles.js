@@ -15,10 +15,10 @@ const secondaryFont = 'OpenSans-Regular';
 export const AlignView = styled(KeyboardAvoidingView)`
 display: flex;
 flex-direction: column;
-height: 100%;
+/* height: 100%; */
 width: 100%;
-overflow: scroll;
-/* background-color: #444; */
+/* overflow: scroll; */
+/* background-color: #ee3; */
 `;
 
 export const AllIcon = styled(Icon)`
@@ -29,7 +29,7 @@ export const AllIcon = styled(Icon)`
 
 export const ButtonWrapper = styled.View`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: auto;
   width: 100%;
   /* background-color: #fe2; */
@@ -73,6 +73,7 @@ export const ForgotPasswordLink = styled(TouchableOpacity)`
 export const ForgotPasswordText = styled.Text`
   font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
   font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
+  line-height: ${Platform.OS === 'ios' ? '20px' : '18px'};
   text-align: center;
   text-decoration: underline;
   width: auto;
@@ -217,10 +218,21 @@ export const SignUpErrorText = styled.Text`
 
 export const SignUpText = styled.Text`
   font-size: ${Platform.OS === 'ios' ? '16px' : '14px'};
-  font-weight: bold;
-  color: #fff;
-  /* color: #44ccee; */
+  line-height: ${Platform.OS === 'ios' ? '20px' : '18px'};
+  /* width: 90%; */
+  text-align: center;
+  color: #1B2432;
+  /* background-color: #F5F; */
+`;
 
+export const SignUpTextView = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  height: auto;
+  width: 100%;
+  /* background-color: #999; */
 `;
 
 export const StyledScrollView = styled.ScrollView`
@@ -238,14 +250,15 @@ margin: 16px auto;
 color: #1B2432;
 `;
 
-export const Wrapper = styled.View`
+export const Wrapper = styled.ScrollView`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
   height: auto;
   width: 80%;
   min-width: 320px;
   margin: 0 auto;
+  /* padding-bottom: 32px; */
   /* background-color: #f5f; */
 `;

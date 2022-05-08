@@ -38,18 +38,26 @@ import { updateMessagesRequest, updateForwardMessage } from '~/store/modules/mes
 // import messaging from '@react-native-firebase/messaging';
 
 export default function MessagesConversationPage({ navigation, route }) {
-  // console.log(route.params)
+
   const { t, i18n } = useTranslation()
   const profileUserId = useSelector(state => state.user.profile.id);
   const profileUserName = useSelector(state => state.user.profile.user_name);
-  const messageWorkerId = route.params.worker_id;
-  const messageUserId = route.params.user_id;
-  const chat_id = route.params.chat_id;
-  const inverted = route.params.inverted;
-  const dispatch = useDispatch();
-  const [messages, setMessages] = useState([]);
-  // const [defaultMessages, setDefaultMessages] = useState();
+  const profileUserEmail = useSelector(state => state.user.profile.email);
 
+  // console.log(route.params)
+
+  const messageUserId = route.params.userData.id;
+  const messageUserEmail = route.params.userData.email;
+
+  const messageWorkerEmail = route.params.workerData.email;
+  const messageWorkerId = route.params.workerData.id;
+
+  const chatId = route.params.chat_id;
+  const inverted = route.params.inverted;
+
+  const dispatch = useDispatch();
+
+  const [messages, setMessages] = useState([]);
   const [firstMessage, setFirstMessage] = useState(route.params.first_message);
   const [replyValue, setReplyValue] = useState();
   const [replySender, setReplySender] = useState();
@@ -59,18 +67,19 @@ export default function MessagesConversationPage({ navigation, route }) {
   const [load, setLoad] = useState();
   const lastMessageRef = useRef()
 
-  const task = route.params.userData;
-  const chatId = route.params.chat_id;
-
   const messagesRef = firestore()
   .collection(`messages/chat/${chatId}`)
 
   const formattedMessageDate = fdate =>
   fdate == null
     ? ''
-    : getDay(parseISO(JSON.parse(fdate))) === getDay(new Date())
-        ? format(parseISO(JSON.parse(fdate)), "h:mm aaa", { locale: enUS })
-        : format(parseISO(JSON.parse(fdate)), "MMM'/'dd'/'yy h:mm aaa", { locale: enUS })
+    : i18n.language === 'en'
+      ? getDay(parseISO(JSON.parse(fdate))) === getDay(new Date())
+        ? format(parseISO(JSON.parse(fdate)), "'Today'   h:mm aaa", { locale: enUS })
+        : format(parseISO(JSON.parse(fdate)), "MMM'/'dd'/'yy   h:mm aaa", { locale: enUS })
+      : getDay(parseISO(JSON.parse(fdate))) === getDay(new Date())
+          ? format(parseISO(JSON.parse(fdate)), "'Hoje'   HH:mm", { locale: ptBR })
+          : format(parseISO(JSON.parse(fdate)), "dd'/'MMM'/'yy   HH:mm", { locale: ptBR })
 
   useEffect(() => {
     let mounted = true; // mounted solution: https://www.debuggr.io/react-update-unmounted-component/
@@ -87,7 +96,6 @@ export default function MessagesConversationPage({ navigation, route }) {
         ...d.data(),
       }));
       setMessages(data.reverse())
-      // setDefaultMessages(data)
     })
     return unsubscribe;
   }
@@ -96,41 +104,45 @@ export default function MessagesConversationPage({ navigation, route }) {
     try {
       setLoad(true)
       let newMessage = null
-      // let formattedTimeStamp = formattedMessageDate(new Date())
+
       const message_id = Math.floor(Math.random() * 1000000)
       if (replyValue) {
         newMessage = {
-          createdAt: firestore.FieldValue.serverTimestamp(),
-          forward_message: false,
           id: message_id,
-          message: value,
-          receiver_id: inverted ? messageUserId : messageWorkerId,
+          chat_id: chatId,
+          forward_message: false,
           reply_message: replyValue,
           reply_sender: replySender,
-          sender: `${inverted ? "worker" : "user"}`,
+          message: value,
+          createdAt: firestore.FieldValue.serverTimestamp(),
+
+          sender_email: profileUserEmail,
           sender_name: profileUserName,
-          sender_id: profileUserId,
+          receiver_email: profileUserEmail === messageUserEmail ? messageWorkerEmail : messageUserEmail,
+
           timestamp: JSON.stringify(new Date()),
-          user_read: inverted ? false : true,
+          user_read: profileUserEmail === messageUserEmail ? true : false,
+          worker_read: profileUserEmail === messageUserEmail ? false : true,
           visible: true,
-          worker_read: inverted ? true : false,
         }
       } else {
         newMessage = {
-          createdAt: firestore.FieldValue.serverTimestamp(),
-          forward_message: false,
           id: message_id,
-          message: value,
-          receiver_id: inverted ? messageUserId : messageWorkerId,
+          chat_id: chatId,
+          forward_message: false,
           reply_message: '',
           reply_sender: '',
-          sender: `${inverted ? "worker" : "user"}`,
-          sender_id: profileUserId,
+          message: value,
+          createdAt: firestore.FieldValue.serverTimestamp(),
+
+          sender_email: profileUserEmail,
           sender_name: profileUserName,
+          receiver_email: profileUserEmail === messageUserEmail ? messageWorkerEmail : messageUserEmail,
+
           timestamp: JSON.stringify(new Date()),
-          user_read: inverted ? false : true,
+          user_read: profileUserEmail === messageUserEmail ? true : false,
+          worker_read: profileUserEmail === messageUserEmail ? false : true,
           visible: true,
-          worker_read: inverted ? true : false,
         }
       }
 
@@ -138,12 +150,13 @@ export default function MessagesConversationPage({ navigation, route }) {
       await messagesRef
       .doc(`${message_id}`).set(newMessage)
       .then(() => {
-        // console.log(firstMessage)
         if(firstMessage === true) {
           api.post('/messages', {
-            user_id: messageUserId,
-            worker_id: messageWorkerId,
-            chat_id: chat_id,
+            user_id: profileUserId,
+            user_email: profileUserEmail,
+            worker_id: profileUserEmail === messageUserEmail ? messageWorkerId : messageUserId,
+            worker_email: profileUserEmail === messageUserEmail ? messageWorkerEmail : messageUserEmail,
+            chat_id: chatId,
             messaged_at: JSON.stringify(new Date()),
             messageObject: newMessage,
 
@@ -153,9 +166,10 @@ export default function MessagesConversationPage({ navigation, route }) {
           return
         }
 
-        api.put(`/messages/${chat_id}`, {
+        api.put(`/messages/${chatId}`, {
           messaged_at: JSON.stringify(new Date()),
           messageObject: newMessage,
+          profileUserEmail: profileUserEmail,
         })
         dispatch(updateMessagesRequest(new Date()))
       })
@@ -201,379 +215,178 @@ export default function MessagesConversationPage({ navigation, route }) {
     <AlignView key={item.id}>
       <MarginView02/>
       <LineView>
-        <MessageContainer sender={item.sender} inverted={inverted}>
+        <MessageContainer profileUserEmail={profileUserEmail === item.sender_email} inverted={inverted}>
           <MessageWrapper>
-            { !inverted
-              ? (
-                <>
-                  { item.sender === 'user'
+            { profileUserEmail === item.sender_email
                     ? (<MessageTime>{formattedMessageDate(item.timestamp)}</MessageTime>)
                     : null
-                  }
-                </>
-              )
-              : (
-                <>
-                  { item.sender === 'worker'
-                    ? (<MessageTime>{formattedMessageDate(item.timestamp)}</MessageTime>)
-                    : null
-                  }
-                </>
-              )
             }
-            { !inverted
+            { profileUserEmail === item.sender_email
               ? (
-                <>
-                  { item.sender === 'user'
+                <MessageViewUser
+                  sender={item.sender}
+                  colors={['#E0EFEA', '#D0ECE3']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 1 }}
+                >
+                  { item.reply_message && !item.removed_message && !item.deleted_message
                     ? (
-                      <MessageViewUser
-                        sender={item.sender}
-                        colors={['#E0EFEA', '#D0ECE3']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 0, y: 1 }}
-                      >
-                        { item.reply_message && !item.removed_message && !item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ReplyOnTopWrapper>
-                                <LeftBorderView/>
-                                <ReplyOnTopView>
-
-                                  { item.reply_sender === 'worker'
-                                    ? (
-                                      <ReplyWorkerNameText>
-                                        {item.reply_sender}
-
-                                      </ReplyWorkerNameText>
-                                    )
-                                    : (
-                                      <ReplyWorkerNameText>
-                                        {item.reply_sender}
-
-                                      </ReplyWorkerNameText>
-                                    )
-                                  }
-                                  <ReplyOnTopText>{item.reply_message}</ReplyOnTopText>
-                                </ReplyOnTopView>
-                              </ReplyOnTopWrapper>
-                            </>
-                          )
-                          : null
-                        }
-                        { item.forward_message && !item.removed_message && !item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ForwardOnTopView>
-                                <MessageIcon name='corner-down-right'/>
-                                <ForwardText>{t('ForwardedMessage')}</ForwardText>
-                              </ForwardOnTopView>
-                            </>
-                          )
-                          : (
-                            null
-                          )
-                        }
-                        { item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ForwardOnTopView>
-                                <MessageIcon name='slash'/>
-                                <ForwardText>{t('ThisMessageWasDeleted')}</ForwardText>
-                              </ForwardOnTopView>
-                            </>
-                          )
-                          : null
-                        }
-                        { !item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <MessageBottomView>
-                                <MessageText removedMessage={item.removed_message}>{item.message}</MessageText>
-                                <TouchableOpacity
-                                  onPress={() => handleMessageDropMenu(index)}
-                                >
-                                  <MessageIcon name='chevron-down'/>
-                                </TouchableOpacity>
-                              </MessageBottomView>
-                            </>
-                          )
-                          : null
-
-                        }
+                      <>
                         <MarginView04/>
-                      </MessageViewUser>
+                        <ReplyOnTopWrapper>
+                          <LeftBorderView/>
+                          <ReplyOnTopView>
+
+                            { item.reply_sender === 'worker'
+                              ? (
+                                <ReplyWorkerNameText>
+                                  {item.reply_sender}
+
+                                </ReplyWorkerNameText>
+                              )
+                              : (
+                                <ReplyWorkerNameText>
+                                  {item.reply_sender}
+
+                                </ReplyWorkerNameText>
+                              )
+                            }
+                            <ReplyOnTopText>{item.reply_message}</ReplyOnTopText>
+                          </ReplyOnTopView>
+                        </ReplyOnTopWrapper>
+                      </>
+                    )
+                    : null
+                  }
+                  { item.forward_message && !item.removed_message && !item.deleted_message
+                    ? (
+                      <>
+                        <MarginView04/>
+                        <ForwardOnTopView>
+                          <MessageIcon name='corner-down-right'/>
+                          <ForwardText>{t('ForwardedMessage')}</ForwardText>
+                        </ForwardOnTopView>
+                      </>
                     )
                     : (
-                      <MessageView
-                        sender={item.sender}
-                        colors={['#ddd', '#f5f5f5']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 0, y: 1 }}
-                      >
-                        { item.reply_message && !item.removed_message && !item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ReplyOnTopWrapper>
-                              <LeftBorderView/>
-                                <ReplyOnTopView>
-                                  { item.reply_sender === 'worker'
-                                    ? (
-                                      <ReplyUserNameText>
-                                        {item.reply_sender}
-                                      </ReplyUserNameText>
-                                    )
-                                    : (
-                                      <ReplyUserNameText>
-                                        {item.reply_sender}
-                                        </ReplyUserNameText>
-                                    )
-                                  }
-                                  <ReplyOnTopText>{item.reply_message}</ReplyOnTopText>
-                                </ReplyOnTopView>
-                              </ReplyOnTopWrapper>
-                            </>
-                          )
-                          : null
-                        }
-                        { item.forward_message && !item.removed_message && !item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ForwardOnTopView>
-                                <MessageIcon name='corner-down-right'/>
-                                <ForwardText>{t('ForwardedMessage')}</ForwardText>
-                              </ForwardOnTopView>
-                            </>
-                          )
-                          : (
-                            null
-                          )
-                        }
-                        { item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ForwardOnTopView>
-                                <MessageIcon name='slash'/>
-                                <ForwardText>{t('ThisMessageWasDeleted')}</ForwardText>
-                              </ForwardOnTopView>
-                            </>
-                          )
-                          : null
-                        }
-                        { !item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <MessageBottomView>
-                                <MessageText removedMessage={item.removed_message}>{item.message}</MessageText>
-                                <TouchableOpacity
-                                  onPress={() => handleMessageDropMenu(index)}
-                                >
-                                  <MessageIcon name='chevron-down'/>
-                                </TouchableOpacity>
-                              </MessageBottomView>
-                            </>
-                          )
-                          : null
-
-                        }
-                        <MarginView04/>
-                      </MessageView>
+                      null
                     )
                   }
-                </>
+                  { item.deleted_message
+                    ? (
+                      <>
+                        <MarginView04/>
+                        <ForwardOnTopView>
+                          <MessageIcon name='slash'/>
+                          <ForwardText>{t('ThisMessageWasDeleted')}</ForwardText>
+                        </ForwardOnTopView>
+                      </>
+                    )
+                    : null
+                  }
+                  { !item.deleted_message
+                    ? (
+                      <>
+                        <MarginView04/>
+                        <MessageBottomView>
+                          <MessageText removedMessage={item.removed_message}>{item.message}</MessageText>
+                          <TouchableOpacity
+                            onPress={() => handleMessageDropMenu(index)}
+                          >
+                            <MessageIcon name='chevron-down'/>
+                          </TouchableOpacity>
+                        </MessageBottomView>
+                      </>
+                    )
+                    : null
+
+                  }
+                  <MarginView04/>
+                </MessageViewUser>
               )
               : (
-                <>
-                  { item.sender === 'worker'
+                <MessageView
+                  sender={item.sender}
+                  colors={['#ddd', '#f5f5f5']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 1 }}
+                >
+                  { item.reply_message && !item.removed_message && !item.deleted_message
                     ? (
-                      <MessageViewUser
-                        sender={item.sender}
-                        colors={['#E0EFEA', '#D0ECE3']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 0, y: 1 }}
-                      >
-                        { item.reply_message && !item.removed_message && !item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ReplyOnTopWrapper>
-                              <LeftBorderView/>
-                                <ReplyOnTopView>
-
-                                  { item.reply_sender === 'worker'
-                                    ? (
-                                      <ReplyWorkerNameText>
-                                        {item.reply_sender}
-                                      </ReplyWorkerNameText>
-                                    )
-                                    : (
-                                      <ReplyWorkerNameText>
-                                        {item.reply_sender}
-
-                                      </ReplyWorkerNameText>
-                                    )
-                                  }
-                                  <ReplyOnTopText>{item.reply_message}</ReplyOnTopText>
-                                </ReplyOnTopView>
-                              </ReplyOnTopWrapper>
-                            </>
-                          )
-                          : null
-                        }
-                        { item.forward_message && !item.removed_message && !item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ForwardOnTopView>
-                                <MessageIcon name='corner-down-right'/>
-                                <ForwardText>{t('ForwardedMessage')}</ForwardText>
-                              </ForwardOnTopView>
-                            </>
-                          )
-                          : (
-                            null
-                          )
-                        }
-                        { item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ForwardOnTopView>
-                                <MessageIcon name='slash'/>
-                                <ForwardText>{t('ThisMessageWasDeleted')}</ForwardText>
-                              </ForwardOnTopView>
-                            </>
-                          )
-                          : null
-                        }
-                        { !item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <MessageBottomView>
-                                <MessageText removedMessage={item.removed_message}>{item.message}</MessageText>
-                                <TouchableOpacity
-                                  onPress={() => handleMessageDropMenu(index)}
-                                >
-                                  <MessageIcon name='chevron-down'/>
-                                </TouchableOpacity>
-                              </MessageBottomView>
-                            </>
-                          )
-                          : null
-
-                        }
+                      <>
                         <MarginView04/>
-                      </MessageViewUser>
+                        <ReplyOnTopWrapper>
+                        <LeftBorderView/>
+                          <ReplyOnTopView>
+                            { item.reply_sender === 'worker'
+                              ? (
+                                <ReplyUserNameText>
+                                  {item.reply_sender}
+                                </ReplyUserNameText>
+                              )
+                              : (
+                                <ReplyUserNameText>
+                                  {item.reply_sender}
+                                  </ReplyUserNameText>
+                              )
+                            }
+                            <ReplyOnTopText>{item.reply_message}</ReplyOnTopText>
+                          </ReplyOnTopView>
+                        </ReplyOnTopWrapper>
+                      </>
+                    )
+                    : null
+                  }
+                  { item.forward_message && !item.removed_message && !item.deleted_message
+                    ? (
+                      <>
+                        <MarginView04/>
+                        <ForwardOnTopView>
+                          <MessageIcon name='corner-down-right'/>
+                          <ForwardText>{t('ForwardedMessage')}</ForwardText>
+                        </ForwardOnTopView>
+                      </>
                     )
                     : (
-                      <MessageView
-                        sender={item.sender}
-                        colors={['#f5f5f5', '#ddd']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 0, y: 1 }}
-                      >
-                        { item.reply_message && !item.removed_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ReplyOnTopWrapper>
-                              <LeftBorderView/>
-                                <ReplyOnTopView>
-                                  { item.reply_sender === 'worker'
-                                    ? (
-                                      <ReplyUserNameText>
-                                        {item.sender_name}
-                                      </ReplyUserNameText>
-                                    )
-                                    : (
-                                      <ReplyUserNameText>
-                                        {item.reply_sender}
-                                      </ReplyUserNameText>
-                                    )
-                                  }
-                                  <ReplyOnTopText>{item.reply_message}</ReplyOnTopText>
-                                </ReplyOnTopView>
-                              </ReplyOnTopWrapper>
-                            </>
-                          )
-                          : null
-                        }
-                        { item.forward_message && !item.removed_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ForwardOnTopView>
-                                <MessageIcon name='corner-down-right'/>
-                                <ForwardText>{t('ForwardedMessage')}</ForwardText>
-                              </ForwardOnTopView>
-                            </>
-                          )
-                          : (
-                            null
-                          )
-                        }
-                        { item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <ForwardOnTopView>
-                                <MessageIcon name='slash'/>
-                                <ForwardText>{t('ThisMessageWasDeleted')}</ForwardText>
-                              </ForwardOnTopView>
-                            </>
-                          )
-                          : null
-                        }
-                        { !item.deleted_message
-                          ? (
-                            <>
-                              <MarginView04/>
-                              <MessageBottomView>
-                                <MessageText removedMessage={item.removed_message}>{item.message}</MessageText>
-                                <TouchableOpacity
-                                  onPress={() => handleMessageDropMenu(index)}
-                                >
-                                  <MessageIcon name='chevron-down'/>
-                                </TouchableOpacity>
-                              </MessageBottomView>
-                            </>
-                          )
-                          : null
-
-                        }
-                        <MarginView04/>
-                      </MessageView>
+                      null
                     )
                   }
-                </>
+                  { item.deleted_message
+                    ? (
+                      <>
+                        <MarginView04/>
+                        <ForwardOnTopView>
+                          <MessageIcon name='slash'/>
+                          <ForwardText>{t('ThisMessageWasDeleted')}</ForwardText>
+                        </ForwardOnTopView>
+                      </>
+                    )
+                    : null
+                  }
+                  { !item.deleted_message
+                    ? (
+                      <>
+                        <MarginView04/>
+                        <MessageBottomView>
+                          <MessageText removedMessage={item.removed_message}>{item.message}</MessageText>
+                          <TouchableOpacity
+                            onPress={() => handleMessageDropMenu(index)}
+                          >
+                            <MessageIcon name='chevron-down'/>
+                          </TouchableOpacity>
+                        </MessageBottomView>
+                      </>
+                    )
+                    : null
 
+                  }
+                  <MarginView04/>
+                </MessageView>
               )
             }
-            { !inverted
-              ? (
-                <>
-                  { item.sender === 'worker'
-                    ? (<MessageTime>{formattedMessageDate(item.timestamp)}</MessageTime>)
-                    : null
-                  }
-                </>
-              )
-              : (
-                <>
-                  { item.sender === 'user'
-                    ? (<MessageTime>{formattedMessageDate(item.timestamp)}</MessageTime>)
-                    : null
-                  }
-                </>
-              )
+            { profileUserEmail === item.receiver_email
+              ? (<MessageTime>{formattedMessageDate(item.timestamp)}</MessageTime>)
+              : null
             }
           </MessageWrapper>
 
@@ -607,7 +420,7 @@ export default function MessagesConversationPage({ navigation, route }) {
                   )
                   : null
                 }
-                { inverted && item.sender === 'worker'
+                { profileUserEmail === item.sender_email
                   ? (
                     <MessageListButton
                     onPress={() => handleMessageDelete(item.id)}

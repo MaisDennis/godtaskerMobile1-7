@@ -16,8 +16,9 @@ export const AlignView = styled.View`
 
 export const HeaderContainer = styled.View`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   width: 100%;
   /* height: 100%; */
   /* background: #F5F5; */
@@ -27,18 +28,14 @@ export const HeaderText = styled.Text`
 color: #222;
 font-size: ${Platform.OS === 'ios' ? '16px' : '14px'};
 font-family: ${Platform.OS === 'ios' ? 'system font' : primaryFont};
-margin: 0 auto;
-padding: 2px;
+margin: 0;
+/* padding: 2px; */
 /* background: #F5F5; */
 `;
 
 export const HeaderImage = styled.Image`
-/* height: 46px;
-width: 150px; */
-/* height: 60px;
-width: 44%; */
-height: 40px;
-/* width: 125px; */
-width: 116px;
+height: 20px;
+width: 22px;
+margin-right: 8px;
 /* background: #f00; */
 `;

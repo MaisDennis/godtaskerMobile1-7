@@ -11,21 +11,21 @@ import {
   AddIcon,
   BannerImage, BannerView,
   BioText, BlockLarge, BlockLargeBoss,
-  BlockLargeWorker, BlockSegment, BlockSmallBoss, BlockSmallWorker,
+  BlockLargeWorker, BlockSegment, BlockSmallBoss, BlockSmallDisplayed, BlockSmallService, BlockSmallWorker,
   ButtonWrapper,
   Container, ContentView,
   FirstNameWrapper, FollowersView, FollowersWrapper, FormScrollView,
   Header, HeaderImage, HeaderTabView, HeaderTouchable, HrLine,
   Iicon, Input,
   Label, LabelBold, LabelBold2, LabelBoldBoss,
-  LabelBoldBoss2, LabelBoldRed, LabelBoldSocialMedia,
-  LabelBoldWorker, LabelBoldWorker2,
+  LabelBoldBoss2, LabelBoldDisplayed, LabelBoldRed, LabelBoldService, LabelBoldSocialMedia,
+  LabelBoldWorker, LabelBoldWorker2, LabelMild,
   LabelNormal, LabelNormalBoss, LabelNormalSocialMedia,
   LabelNormalWorker,
   LabelSmallBoss, LabelSmallBoss2, LabelSmallRed, LabelSmallSpace,
   LabelSmallWorker, LabelSmallWorker2, LabelSpace, LeftView, LinkedInWrapper,
   MarginView02, MarginView04, MarginView08, ModalView, ModalWrapper01, ModalWrapper02,
-  SocialMediaButton, SocialMediaText, SocialMediaView,
+  ServiceView, SocialMediaButton, SocialMediaText, SocialMediaView,
   SocialMediaWrapper, SpaceView,
   StatusCircleBoss, StatusCircleRed, StatusCircleWorker,
   StatusLineBoss, StatusLineWorker, StatusView,
@@ -37,7 +37,7 @@ import logo from '~/assets/detective/detective_remake02.png'
 import banner from '~/assets/detective/font_remake02.png'
 import api from '~/services/api';
 import Button from '~/components/Button'
-// import ButtonForIcon from '~/components/ButtonForIcon'
+import Service from '~/components/Service'
 
 export default function Dashboard({ navigation }) {
   const { t, i18n } = useTranslation()
@@ -46,6 +46,8 @@ export default function Dashboard({ navigation }) {
   const user_email = useSelector(state => state.worker.profile.email);
   const user_photo = useSelector(state => state.user.profile.avatar) || null;
   const worker_id = useSelector(state => state.worker.profile.id);
+  const update_services = useSelector(state => state.service.services);
+
   const [userFirstName, setUserFirstName] = useState();
   const [userLastName, setUserLastName] = useState();
   const [userUserName, setUserUserName] = useState();
@@ -60,6 +62,8 @@ export default function Dashboard({ navigation }) {
 
   const [countFollowers, setCountFollowers] = useState();
   const [countFollowing, setCountFollowing] = useState();
+  const [displays, setDisplays] = useState();
+  const [services, setServices] = useState();
   const [userCountSent, setUserCountSent] = useState();
   const [userCountInitiated, setUserCountInitiated] = useState();
   const [userCountFinished, setUserCountFinished] = useState();
@@ -80,58 +84,49 @@ export default function Dashboard({ navigation }) {
 
   useEffect(() => {
     loadData()
-  }, [])
-
-  const formattedDate = fdate =>
-  fdate == null
-    ? '-'
-    : format(fdate, "MMMM do', 'yyyy", { locale: enUS });
+  }, [update_services])
 
   async function loadData() {
-    const user = await api.get(`users/${user_id}`)
-
-    const userResponse = await api.get('/tasks/user/count', {
-      params: {
-        userID: user_id,
-      }
+    const dashboardResponse = await api.get(`/dashboard/${user_id}`, {
+      params: { user_id, worker_id }
     })
 
-    const workerResponse = await api.get('/tasks/count', {
-      params: {
-        workerID: worker_id,
-      }
+    const serviceResponse = await api.get(`/services`, {
+      params: { creator_email: user_email }
     })
 
-    const followingResponse = await api.get(`/users/${user_id}/following/count`)
-    const followedResponse = await api.get(`/workers/${worker_id}/followed/count`)
-    // console.log(user.data)
-    setUserFirstName(user.data.first_name)
-    setUserLastName(user.data.last_name)
-    setUserUserName(user.data.user_name)
-    setUserPhoto(user.data.avatar)
-    setUserPoints(user.data.points)
-    setUserInstagram(user.data.instagram)
-    setUserLinkedIn(user.data.linkedin)
-    setUserBio(user.data.bio)
+    setUserFirstName(dashboardResponse.data.user.first_name)
+    setUserLastName(dashboardResponse.data.user.last_name)
+    setUserUserName(dashboardResponse.data.user.user_name)
+    setUserPhoto(dashboardResponse.data.user.avatar)
+    setUserPoints(dashboardResponse.data.user.points)
+    setUserInstagram(dashboardResponse.data.user.instagram)
+    setUserLinkedIn(dashboardResponse.data.user.linkedin)
+    setUserBio(dashboardResponse.data.user.bio)
 
-    setCountFollowers(followedResponse.data)
-    setCountFollowing(followingResponse.data)
-    setUserCountSent(userResponse.data.countSent)
-    setUserCountInitiated(userResponse.data.countInitiated)
-    setUserCountFinished(userResponse.data.countFinished)
-    setUserCountCanceled(userResponse.data.countCanceled)
-    setUserCountOverDue(userResponse.data.countOverDue)
-    setUserCountTodayDue(userResponse.data.countTodayDue)
-    setUserCountTomorrowDue(userResponse.data.countTomorrowDue)
-    setUserCountThisWeekDue(userResponse.data.countThisWeekDue)
-    setWorkerCountReceived(workerResponse.data.countReceived)
-    setWorkerCountInitiated(workerResponse.data.countInitiated)
-    setWorkerCountFinished(workerResponse.data.countFinished)
-    setWorkerCountCanceled(workerResponse.data.countCanceled)
-    setWorkerCountOverDue(workerResponse.data.countOverDue)
-    setWorkerCountTodayDue(workerResponse.data.countTodayDue)
-    setWorkerCountTomorrowDue(workerResponse.data.countTomorrowDue)
-    setWorkerCountThisWeekDue(workerResponse.data.countThisWeekDue)
+    setCountFollowers(dashboardResponse.data.countFollowers)
+    setCountFollowing(dashboardResponse.data.countFollowing)
+
+    setUserCountSent(dashboardResponse.data.userCountSent)
+    setUserCountInitiated(dashboardResponse.data.userCountInitiated)
+    setUserCountFinished(dashboardResponse.data.userCountFinished)
+    setUserCountCanceled(dashboardResponse.data.userCountCanceled)
+    setUserCountOverDue(dashboardResponse.data.userCountOverDue)
+    setUserCountTodayDue(dashboardResponse.data.userCountTodayDue)
+    setUserCountTomorrowDue(dashboardResponse.data.userCountTomorrowDue)
+    setUserCountThisWeekDue(dashboardResponse.data.userCountThisWeekDue)
+    setWorkerCountReceived(dashboardResponse.data.workerCountReceived)
+    setWorkerCountInitiated(dashboardResponse.data.workerCountInitiated)
+    setWorkerCountFinished(dashboardResponse.data.workerCountFinished)
+    setWorkerCountCanceled(dashboardResponse.data.workerCountCanceled)
+    setWorkerCountOverDue(dashboardResponse.data.workerCountOverDue)
+    setWorkerCountTodayDue(dashboardResponse.data.workerCountTodayDue)
+    setWorkerCountTomorrowDue(dashboardResponse.data.workerCountTomorrowDue)
+    setWorkerCountThisWeekDue(dashboardResponse.data.workerCountThisWeekDue)
+
+    setServices(serviceResponse.data.services)
+    setDisplays(serviceResponse.data.displays)
+
   }
 
   function handleRefresh() {
@@ -190,10 +185,15 @@ export default function Dashboard({ navigation }) {
       bio: userBio,
     }));
   }
-  // ---------------------------------------------------------------------------
+
+  async function handleToggleServiceCreate() {
+    navigation.navigate('ServiceCreate')
+  }
+// -----------------------------------------------------------------------------
   return (
     <Container>
       <FormScrollView>
+{/* Header ----------------------------------------------------------------- */}
         <Header>
           <SpaceView>
             <HeaderImage source={logo}/>
@@ -212,7 +212,7 @@ export default function Dashboard({ navigation }) {
         <UserView>
           <UserWrapper>
             <LeftView>
-              { user_photo === undefined || user_photo === null
+              { userPhoto === undefined || userPhoto === null
                 ? (
                   <>
                     <UserImageBackgroundView>
@@ -226,8 +226,8 @@ export default function Dashboard({ navigation }) {
                   <UserImageBackgroundView>
                     <UserImage
                       source={
-                        user_photo
-                          ? { uri: user_photo.url }
+                        userPhoto
+                          ? { uri: userPhoto.url }
                           : defaultAvatar
                       }
                     />
@@ -248,10 +248,10 @@ export default function Dashboard({ navigation }) {
                   }
               </UserNameWrapper>
 
-              <FirstNameWrapper>
+              {/* <FirstNameWrapper>
                 <LabelBold2>{userFirstName}</LabelBold2>
                 <LabelBold2>{userLastName}</LabelBold2>
-              </FirstNameWrapper>
+              </FirstNameWrapper> */}
               <FollowersWrapper>
                 <FollowersView onPress={handleFollowed}>
                   <LabelBold>{countFollowers}</LabelBold>
@@ -283,7 +283,7 @@ export default function Dashboard({ navigation }) {
           </SocialMediaWrapper>
         </ContentView>
         <MarginView08/>
-
+{/* Received Status -------------------------------------------------------- */}
         <ContentView>
           <StatusView>
             <Label>{t('ReceivedTasksStatus')}</Label>
@@ -380,6 +380,8 @@ export default function Dashboard({ navigation }) {
           </StatusView>
         </ContentView>
         <MarginView08/>
+        <MarginView08/>
+{/* Sent Status ------------------------------------------------------------ */}
         <ContentView>
           <StatusView>
             <Label>{t('SentTasksStatus')}</Label>
@@ -476,41 +478,82 @@ export default function Dashboard({ navigation }) {
             </BlockLargeBoss>
           </StatusView>
         </ContentView>
-
-        {/* ----------- */}
-        <MarginView04/>
-        <HrLine/>
-        <MarginView04/>
-        {/* ----------- */}
-
+        <MarginView08/>
+        <MarginView08/>
+{/* Bio -------------------------------------------------------------------- */}
         <ContentView>
           <StatusView>
             <Label>Bio:</Label>
+            <SocialMediaButton onPress={handleToggleBio}>
+              <Iicon name='edit-2' size={18}/>
+            </SocialMediaButton>
           </StatusView>
           <MarginView04/>
           <StatusView>
             <BlockLarge>
-              <BioText>{userBio}</BioText>
+              { userBio
+                ? (<BioText>{userBio}</BioText>)
+                : (<BioText>-</BioText>)
+              }
             </BlockLarge>
           </StatusView>
-          {/* ----------- */}
-          <MarginView04/>
-          <HrLine/>
-          <MarginView04/>
-          {/* ----------- */}
-          <MarginView04/>
-          <ButtonWrapper>
-            <Button
-              small={true}
-              onPress={handleToggleBio}
-            >
-              {t('EditBio')}
-            </Button>
-          </ButtonWrapper>
           <MarginView08/>
           <MarginView08/>
         </ContentView>
- {/* ----------------------------------------------------------------------- */}
+{/* Services --------------------------------------------------------------- */}
+        <ContentView>
+          <StatusView>
+            <Label>Saved Tasks:</Label>
+            <SocialMediaButton onPress={handleToggleServiceCreate}>
+              <Iicon name='plus' size={20}/>
+            </SocialMediaButton>
+          </StatusView>
+          <MarginView04/>
+          <ServiceView>
+            { services && services[0] != null
+              ? services.map(s => (
+                <Service
+                  key={s.id}
+                  data={s}
+                  navigation={navigation}
+                  display={false}
+                >{s.name}</Service>
+              ))
+              : (
+                <LabelMild>No Saved Tasks yet</LabelMild>
+              )
+          }
+
+
+          </ServiceView>
+        </ContentView>
+        <MarginView08/>
+{/* Displayed in Worker ---------------------------------------------------- */}
+        <ContentView>
+          <StatusView>
+            <Label>Displayed in Worker Profile:</Label>
+          </StatusView>
+          <MarginView04/>
+          <ServiceView>
+          { displays && displays[0] != null
+            ? displays.map(s => (
+              <Service
+                key={s.id}
+                data={s}
+                navigation={navigation}
+                display={true}
+                workerPage={false}
+              >{s.name}</Service>
+            ))
+            : (
+              <LabelMild>No Displayed Services yet</LabelMild>
+            )
+          }
+            </ServiceView>
+        </ContentView>
+        <MarginView08/>
+        <MarginView08/>
+ {/* Modal ----------------------------------------------------------------- */}
         <Modal isVisible={toggleInstagram}>
           <ModalView>
             <MarginView08/>
@@ -524,12 +567,7 @@ export default function Dashboard({ navigation }) {
                 onChangeText={setUserInstagram}
                 placeholder="@username"
               />
-              {/* ------- */}
-              <MarginView04/>
-              <HrLine/>
-              <MarginView04/>
-              {/* ------- */}
-              <MarginView04/>
+              <MarginView08/>
               <Button type={'inverted'} onPress={handleToggleInstagram}>
                 Cancel
               </Button>
@@ -566,18 +604,13 @@ export default function Dashboard({ navigation }) {
                 <LabelBoldSocialMedia>{t('LowerCaseUsername')}</LabelBoldSocialMedia>
                 <LabelNormalSocialMedia>/</LabelNormalSocialMedia>
               </LinkedInWrapper>
-              {/* ------- */}
-              <MarginView04/>
-              <HrLine/>
-              <MarginView04/>
-              {/* ------- */}
+              <MarginView08/>
+              <Button type={'inverted'} onPress={handleToggleLinkedIn}>
+                {t('Cancel')}
+              </Button>
               <MarginView04/>
               <Button type={'submit'} onPress={handleLinkedInSubmit}>
                 OK
-              </Button>
-              <MarginView04/>
-              <Button type={'inverted'} onPress={handleToggleLinkedIn}>
-                {t('Cancel')}
               </Button>
             </ModalWrapper01>
             <MarginView08/>
@@ -585,7 +618,6 @@ export default function Dashboard({ navigation }) {
         </Modal>
 
         <Modal isVisible={toggleBio}>
-
           <ModalView>
             <MarginView08/>
             <ModalWrapper01>
@@ -599,18 +631,14 @@ export default function Dashboard({ navigation }) {
                 onChangeText={setUserBio}
                 placeholder="Biography"
               />
-              {/* ------- */}
-              <MarginView04/>
-              <HrLine/>
-              <MarginView04/>
-              {/* ------- */}
+              <MarginView08/>
+
+              <Button type={'inverted'} onPress={handleToggleBio}>
+                {t('Cancel')}
+              </Button>
               <MarginView04/>
               <Button type={'submit'} onPress={handleBioSubmit}>
                 OK
-              </Button>
-              <MarginView04/>
-              <Button type={'inverted'} onPress={handleToggleBio}>
-                {t('Cancel')}
               </Button>
             </ModalWrapper01>
             <MarginView08/>

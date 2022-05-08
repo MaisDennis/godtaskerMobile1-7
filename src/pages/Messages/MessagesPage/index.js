@@ -20,7 +20,9 @@ import firebase from '~/services/firebase'
 export default function MessagesPage({ navigation, route }) {
   const { t, i18n } = useTranslation()
   const user_id = useSelector(state => state.user.profile.id);
+  const user_email = useSelector(state => state.user.profile.email);
   const workerID = useSelector(state => state.worker.profile.id);
+
   const messages_update = useSelector(state => state.message.profile);
 
   const [messages, setMessages] = useState([]);
@@ -33,7 +35,13 @@ export default function MessagesPage({ navigation, route }) {
   }, [ messages_update ]);
 
     async function loadMessages() {
-      const messagesResponse = await api.get(`messages/${user_id}`)
+      const messagesResponse = await api.get(`messages`, {
+        params: {
+          user_email,
+          // stringified_blocked_list: JSON.stringify([]),
+        },
+      })
+      // console.log(messagesResponse.data)
       const Data = messagesResponse.data
       Data.sort(compare);
       setMessages(Data)

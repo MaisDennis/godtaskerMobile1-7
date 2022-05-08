@@ -1,25 +1,18 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
 // import * as Yup from 'yup';
 // -----------------------------------------------------------------------------
-
 import {
-  AlignView, AllIcon,
-  ButtonText,
-  CheckBoxWrapper,
+  AllIcon,
   Container,
   EyeButton, EyeIcon,
   ForgotPasswordLink, ForgotPasswordText, Form, FormInput,
-  FormInputWorkerPassword, FormWorker,
-  IconView, ImageLogo, ImageGodtaskerFont,
-  Label,
-  MarginView02, MarginView04, MarginView08, ModalButtonView, ModalView,
-  PhoneMask,
-  SubmitButton, SignUpButton, SignUpErrorText, SignUpText, StyledScrollView,
-  Title,
+  IconView,
+  MarginView02, MarginView04, MarginView08,
+  SignUpText, SignUpTextView,
   Wrapper,
 } from '../SignIn/styles';
 import Button from '~/components/Button'
@@ -31,7 +24,7 @@ export default function SignUp(
     // route
   }
 ) {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const signedUp = useSelector(state => state.auth.signedup);
 
@@ -40,34 +33,90 @@ export default function SignUp(
   const [confirmPassword, setConfirmPassword] = useState();
 
   const [email, setEmail] = useState();
-  const [signUpError, setSignUpError] = useState();
   const [secureText, setSecureText] = useState(true);
 
   const placeHolderColor = '#999';
 
   function handleSubmit() {
-    // if (!userName) {
-    //   Alert.alert(
-    //     'Please complete username',
-    //     'Your username is unique to you in Godtasker',
-    //     [{ style: "default" }],
-    //     { cancelable: true },
-    //   );
-    //   return;
-    // }
-
     try {
-      const response = dispatch(signUpRequest(
-        userName, password,
-        email,
-        // navigation,
-      ));
+      auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((response) => {
+          response.user.sendEmailVerification();
+          const bio = t("SignUpBio", { userName: `${userName}` })
+          const res = dispatch(signUpRequest(
+            userName,
+            password,
+            email,
+            bio,
+          ));
+
+          if (res) {
+            console.log('User account created & signed in!');
+            Alert.alert(
+              t("ThankYou"),
+              t("AnEmailHasBeenSent", { email: `${email}` })
+            )
+          } else {
+            Alert.alert(
+              t('ErrorInData'),
+            )
+          }
+        })
+        .catch(error => {
+          if (error.code === 'auth/email-already-in-use') {
+            console.log(error.message);
+            Alert.alert(
+            t("EmailAlreadyInUse"),
+          )
+          }
+
+          if (error.code === 'auth/invalid-email') {
+            console.log(error.message);
+            Alert.alert(
+              t("InvalidEmail"),
+            )
+          } else {
+            console.error(error);
+            Alert.alert(
+              ':(',
+            )
+          }
+
+        });
     }
     catch (error) {
       Alert.alert(
-        'Error in data',
+        t('ErrorInData'),
         `${error}`
       )
+    }
+  }
+
+  function handleTerms() {
+    try {
+      Linking.openURL(`https://godtasker.com/`)
+    }
+    catch(error) {
+      console.log(error)
+    }
+  }
+
+  function handlePrivacy() {
+    try {
+      Linking.openURL(`https://godtasker.com/`)
+    }
+    catch(error) {
+      console.log(error)
+    }
+  }
+
+  function handleEula() {
+    try {
+      Linking.openURL(`https://godtasker.com/`)
+    }
+    catch(error) {
+      console.log(error)
     }
   }
 
@@ -107,7 +156,7 @@ export default function SignUp(
         behavior={Platform.OS === "ios" ? "padding" : "position"}
         keyboardVerticalOffset = {Platform.OS === "ios" ? "100" : null }
       >
-        <Wrapper>
+        <Wrapper contentContainerStyle={{ alignItems: 'center', justifyContent: 'center'}}>
           <MarginView08/>
           <MarginView08/>
           <MarginView08/>
@@ -149,38 +198,62 @@ export default function SignUp(
             </EyeButton>
           </IconView>
           <MarginView08/>
-        <FormInput
-          secureTextEntry = {secureText}
-          autoCapitalize="none"
-          placeholder={t('Password')}
-          placeholderTextColor={placeHolderColor}
-          returnKeyType="send"
-          value={password}
-          onChangeText={setPassword}
-        />
-        <MarginView04/>
-        <FormInput
-          secureTextEntry = {secureText}
-          autoCapitalize="none"
-          placeholder={t('ConfirmPassword')}
-          placeholderTextColor={placeHolderColor}
-          returnKeyType="send"
-          onSubmitEditing={handleSubmit}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-        />
-        {signUpError && (
-          <>
-            <MarginView04/>
-            <SignUpErrorText>{signUpError}</SignUpErrorText>
-          </>
-        )}
-        <MarginView08/>
-        <Button
-          type={'submit'}
-          onPress={handleSubmit}>
-          {t('Submit')}
-        </Button>
+          <FormInput
+            secureTextEntry = {secureText}
+            autoCapitalize="none"
+            placeholder={t('Password')}
+            placeholderTextColor={placeHolderColor}
+            returnKeyType="send"
+            value={password}
+            onChangeText={setPassword}
+          />
+          <MarginView04/>
+          <FormInput
+            secureTextEntry = {secureText}
+            autoCapitalize="none"
+            placeholder={t('ConfirmPassword')}
+            placeholderTextColor={placeHolderColor}
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+          />
+          <MarginView08/>
+          <Button
+            type={'submit'}
+            onPress={handleSubmit}>
+            {t('Submit')}
+          </Button>
+          <MarginView08/>
+          <SignUpText>Ao se cadastrar, você concorda com os nossos:</SignUpText>
+          <MarginView02/>
+          <SignUpTextView>
+
+            <ForgotPasswordLink
+              onPress={handleTerms}
+            >
+              <ForgotPasswordText>
+                Termos e Condições
+              </ForgotPasswordText>
+            </ForgotPasswordLink>
+            <ForgotPasswordLink
+              onPress={handlePrivacy}
+            >
+              <ForgotPasswordText>
+              Política de Privacidade
+              </ForgotPasswordText>
+            </ForgotPasswordLink>
+            <ForgotPasswordLink
+              onPress={handleEula}
+            >
+              <ForgotPasswordText>
+              EULA
+              </ForgotPasswordText>
+            </ForgotPasswordLink>
+          </SignUpTextView>
+          <MarginView08/>
+          <MarginView08/>
+          <MarginView08/>
         </Wrapper>
       </Form>
     </Container>

@@ -16,7 +16,8 @@ export const Container = styled.View`
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: ${Platform.OS === 'ios' ? '#ddd' : '#f5f5f5'};
+  background-color: #fff;
+  /* background-color: ${Platform.OS === 'ios' ? '#ddd' : '#f5f5f5'}; */
   /* background-color: #F5F5; */
 `;
 export const ConversationView = styled(KeyboardAvoidingView)`
@@ -81,20 +82,17 @@ export const ReplyView = styled.View`
 `;
 
 export const SendInput = styled.TextInput`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
-  font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
-  line-height: ${Platform.OS === 'ios' ? '22px' : '18px'};
-  height: auto;
-  min-height: 32px;
+
+  line-height: ${Platform.OS === 'ios' ? '16px' : '14px'};
+
+  height: 36px;
   width: 80%;
   border-radius: 32px;
   border-width: 1px;
   border-color: #ccc;
   margin: 8px 0;
-  padding: ${Platform.OS === 'ios' ? '8px 12px' : '4px 12px'};
+  padding: ${Platform.OS === 'ios' ? '0 12px' : '0 11px'};
   color: #1B2432;
   background-color: #eee;
 `;

@@ -53,13 +53,8 @@ export const MessageBottomView = styled.View`
 export const MessageContainer = styled.View`
   display: flex;
   flex-direction: column;
-  align-items: ${ props => props.inverted === true
-    ? (
-      (props.sender === 'worker') ? 'flex-end' : 'flex-start'
-    )
-    : (
-      (props.sender === 'worker') ? 'flex-start' : 'flex-end'
-    )
+  align-items: ${ props => props.profileUserEmail === true
+    ? 'flex-end' : 'flex-start'
   };
   width: 100%;
   padding: 0 4px;

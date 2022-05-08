@@ -10,12 +10,23 @@ export const ButtonWrapper = styled(TouchableOpacity)`
   height: ${props => props.small == true ? '36px' : '40px'};
   width: ${props => props.small == true ? '108px' : '100%'};
   border-radius: 4px;
+  border-bottom-left-radius: ${props => props.type == 'submit'
+    ? (props => props.small == true ? '4px' : '8px')
+    : '4px'
+  };
+  border-bottom-right-radius: ${props => props.type == 'submit'
+    ? (props => props.small == true ? '4px' : '8px')
+    : '4px'
+  };
   border: ${props => props.type == 'inverted'
     ? '2px'
     : 'none'
   };
   border-color: ${props => props.type == 'inverted'
-    ? '#18A0FB'
+    ? (props => props.black == true
+      ?'#1B2432'
+      :'#18A0FB'
+    )
     : 'transparent'
   };
   margin: 0 auto;
@@ -33,7 +44,13 @@ export const ButtonText = styled.Text`
   font-weight: bold;
   font-family: ${Platform.OS === 'ios' ? 'system font' : primaryFont};
 
-  color: ${props => props.type == 'inverted' ? '#18A0FB' : '#fff'};
+  color: ${props => props.type == 'inverted'
+    ? (props => props.black == true
+      ? '#1B2432'
+      : '#18A0FB'
+    )
+    : '#fff'
+  };
 `;
 
 export const Container = styled.View`

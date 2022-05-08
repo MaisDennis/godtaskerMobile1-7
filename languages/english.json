@@ -4,8 +4,10 @@
     "TabRoutesSearch": "Search",
 
     // components/Tasks
-    "SingularReceived": "Not Started",
-    "Started": "Ongoing...",
+    "To": "To:",
+    "From": "From:",
+    "SingularReceived": "Not\nStarted",
+    "Started": "Ongoing",
     "Ended": "Ended:",
     "Due": "Due:",
     "AcceptThisTask": "Accept this task?",
@@ -24,10 +26,19 @@
     "PhotoSent": "Photo sent",
     "RevivedComment": "Task Revived: {{taskName}}",
     "CanceledComment": "Task Canceled: {{taskName}}",
+    "Task": "Task",
+    "Completed": "completed",
+    "Subtask": "sub-item",
+    "Unchecked": "unchecked",
+    "TaskTitle": "Task: {{taskName}}",
+    "TaskMessage": "Task has been completed by {{workerName}}",
+    "EndTask": "End Task",
+    "DeclinedAt": "{{worker}} declined at: ",
+    "CanceledAt": "{{user}} canceled at: ",
 
     // components/TasksUser
-    "StartedDateAndTime": "Started Date & Time:",
-    "DueDateAndTime": "Due Date & Time:",
+    "StartedDateAndTime": "Started:",
+    "DueDateAndTime": "Due:",
     "PriorityLabel": "Priority:",
     "EndingTime": "Ending Time",
     "CancelThisTask": "Cancel this task?",
@@ -53,9 +64,9 @@
     "DueToday": "due today",
     "Tomorrow": "tomorrow",
     "ThisWeek": "this week",
-    "SentTaskStatus": "Sent Tasks Status:",
+    "SentTasksStatus": "Sent Tasks Status:",
     "Sent": "Sent",
-    "EditBio": "Edit Bio",
+    "EditBio": "Edit Bio:",
     "EditInstagram": "Edit Instagram username:",
     "EditLinkedIn": "Edit LinkedIn username:",
     "JustWrite": "Just write the username",
@@ -80,9 +91,13 @@
     "SelectLanguage": "Select Language",
     "ShareGodtasker": "Share Godtasker",
     "Exit": "Exit",
-    "UseTheText": "Use the text below:",
-    "IWouldLikeTo": "I would like to send you a task through Godtasker. Godtasker is a simple app for sending tasks to each other.\n\nYou can download Godtasker through: \n\n Android:\nwww.wwwwwww.com\n\niOS:\nwww.wwwwwww.com",
+    "UseTheText": "Copy the message below to send to others:",
+    "IWouldLikeTo": "Hi! I would like to send you a task through Godtasker. Godtasker is a simple app for sending tasks to each other.\n\nYou can download Godtasker through: \n\n Android:\nhttps://play.google.com/apps/testing/com.gerentedashmobile\n\niOS:\nsend your e-mail address to godtaskerteam@gmail.com or Whatsapp: +5511983495853",
     "CopyText": "Copy Text",
+    "TextHasBeenCopied": "Text has been copied to the clipboard!",
+    "Language": "Language:",
+    "English": "English",
+    "Portuguese": "Portuguese",
 
 
     // pages/signIn
@@ -106,6 +121,7 @@
     "UserAlreadyVerified": "user already verified",
     "SendForgotPasswordEmail": "Send 'Forgot Password' e-mail",
     "ResendConfirmation": "Re-send confirmation",
+    "InvalidDataPleaseCheckPassword": "Invalid Data. Please check password",
 
     // pages/SignUo
     "UserName": "Username",
@@ -113,6 +129,11 @@
     "ConfirmPassword": "Confirm password",
     "ErrorInData": "Error in data",
     "Search": "Search",
+    "SignUpBio": "Hello, my Username is {{userName}}",
+    "ThankYou": "Thank you for signing up!",
+    "AnEmailHasBeenSent": "An e-mail has been sent to {{email}}. Please confirm your e-mail to activate account.",
+    "EmailAlreadyInUse": "E-mail already in use",
+    "InvalidEmail": "Invalid e-mail",
 
     //pages/TaskCreatePage
     //pages/TaskEditPage
@@ -120,18 +141,18 @@
     "WashTheCar": "Wash the car",
     "SendTo": "Send to:",
     "SentTo": "Sent to:",
-    "FollowingList": "Following List",
+    "FollowingList": "Following List:",
     "SubItem": "Sub-item:",
     "UseSoap": "1. Use soap...",
-    "SubItemWeige": "Sub-item weige:",
+    "SubItemWeige": "Weige:",
     "SubItemList": "Sub-item list:",
-    "Weige": "Weige",
-    "AddSubItem": "Add sub-item",
+    "Weige": "Weige:",
+    "AddSubItem": "Add",
     "StartAndDueDates": "Start & Due Dates:",
     "PickDates": "Pick Dates",
     "Priority": "Priority:",
     "Low": "Low",
-    "Medium": "Medium",
+    "Medium": "Med",
     "High": "High",
     "NA": "n/a",
     "ConfirmWithPhoto": "Confirm with photo?",
@@ -141,6 +162,8 @@
     "DontForget": "Don't forget to wax",
     "StartDate": "Start date:",
     "DueDate": "Due Date:",
+    "Created": "Created",
+    "TaskEdited": "Task Edited",
 
     "PleaseChooseAPerson": "Please choose a person",
     "UseTheFollowingList": "Use the 'Following List' button and select who(m) the task will be sent to",
@@ -170,6 +193,15 @@
 
     // pages/WorkerPage
     "Follow": "Follow",
+    "Blocked": "Blocked",
+    "ReportContent": "Report Content",
+    "UserReported": "User Reported",
+    "BlockUser": "Block User",
+    "UnblockUser": "Unblock User",
+    "ThisUserReported": "This User has been Reported and will be verified in the next 24 hours.",
+    "ThisUserBlocked": "This User has been Blocked and will be not be able to find or contact you.",
+    "ThisUserUnblocked": "This User has been Unblocked.",
+
 
     //routes.js
     "CreateTask": "Create Task",

@@ -148,7 +148,7 @@ export default function UpdateProfile({ navigation, route }) {
           // ref={lastNameRef}
         />
         <MarginView08/>
-        <Button onPress={handleSubmit}>
+        <Button type='submit' onPress={handleSubmit}>
           <ButtonText>{t('Send')}</ButtonText>
         </Button>
       </Form>

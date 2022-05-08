@@ -7,7 +7,7 @@ export function setNavigator(nav) {
 }
 
 export function navigate(routeName, params) {
-  console.tron.log(config.navigator)
+  // console.tron.log(config.navigator)
   if (config.navigator && routeName) {
     let action = NavigationActions.navigate({ routeName, params });
     config.navigator.dispatch(action);

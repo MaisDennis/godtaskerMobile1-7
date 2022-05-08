@@ -13,6 +13,12 @@ import HeaderMessageConversationView from './components/HeaderMessageConversatio
 
 import MessagesConversationPage from './pages/Messages/MessagesConversationPage/index';
 
+import ServiceCreate from './pages/Services/ServiceCreatePage';
+import ServiceDisplay from './pages/Services/ServiceDisplayPage';
+import ServiceEdit from './pages/Services/ServiceEditPage';
+import ServiceSend from './pages/Services/ServiceSendPage';
+import ServiceWorkerSend from './pages/Services/ServiceWorkerSendPage';
+
 import Settings from '~/pages/Settings';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -82,6 +88,101 @@ export default function App() {
         component={TabRoutes }
         options={{
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ServiceCreate"
+        component={ServiceCreate}
+        options={{
+          headerTitle: (() => (<HeaderView data={'Create Saved Task'}/>)),
+          headerShown: true,
+          headerStyle: {
+            height: headerHeight,
+            backgroundColor: '#fff',
+          },
+          headerBackTitleVisible: headerBackVisible,
+          headerBackTitle: "Back",
+          headerBackTitleStyle: {
+            fontSize: headerBackFontSize,
+            marginLeft: 8,
+            color: '#4433ee',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ServiceDisplay"
+        component={ServiceDisplay}
+        options={{
+          headerTitle: (() => (<HeaderView data={'Offer this Service'}/>)),
+          headerShown: true,
+          headerStyle: {
+            height: headerHeight,
+            backgroundColor: '#fff',
+          },
+          headerBackTitleVisible: headerBackVisible,
+          headerBackTitle: "Back",
+          headerBackTitleStyle: {
+            fontSize: headerBackFontSize,
+            marginLeft: 8,
+            color: '#4433ee',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ServiceEdit"
+        component={ServiceEdit}
+        options={{
+          headerTitle: (() => (<HeaderView data={'Edit Saved Task'}/>)),
+          headerShown: true,
+          headerStyle: {
+            height: headerHeight,
+            backgroundColor: '#fff',
+          },
+          headerBackTitleVisible: headerBackVisible,
+          headerBackTitle: "Back",
+          headerBackTitleStyle: {
+            fontSize: headerBackFontSize,
+            marginLeft: 8,
+            color: '#4433ee',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ServiceSend"
+        component={ServiceSend}
+        options={{
+          headerTitle: (() => (<HeaderView data={'Send Task'}/>)),
+          headerShown: true,
+          headerStyle: {
+            height: headerHeight,
+            backgroundColor: '#fff',
+          },
+          headerBackTitleVisible: headerBackVisible,
+          headerBackTitle: "Back",
+          headerBackTitleStyle: {
+            fontSize: headerBackFontSize,
+            marginLeft: 8,
+            color: '#4433ee',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="ServiceWorkerSend"
+        component={ServiceWorkerSend}
+        options={{
+          headerTitle: (() => (<HeaderView data={'Hire this Service'}/>)),
+          headerShown: true,
+          headerStyle: {
+            height: headerHeight,
+            backgroundColor: '#fff',
+          },
+          headerBackTitleVisible: headerBackVisible,
+          headerBackTitle: "Back",
+          headerBackTitleStyle: {
+            fontSize: headerBackFontSize,
+            marginLeft: 8,
+            color: '#4433ee',
+          },
         }}
       />
       <Stack.Screen

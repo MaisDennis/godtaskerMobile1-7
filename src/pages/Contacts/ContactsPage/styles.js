@@ -45,7 +45,7 @@ export const Container = styled.SafeAreaView`
 export const DownloadText = styled.Text`
   font-family: ${Platform.OS === 'ios' ? 'system font' : secondaryFont};
   font-size: ${Platform.OS === 'ios' ? '16px' : '14px'};
-  text-align: justify;
+  text-align: center;
   /* background-color: #666; */
 `;
 
@@ -137,6 +137,8 @@ export const ModalTitleText = styled.Text`
   font-family: ${Platform.OS === 'ios' ? 'system font' : primaryFont};
   /* font-weight: bold; */
   font-size: ${Platform.OS === 'ios' ? '16px' : '14px'};
+  width: 90%;
+  text-align: center;
   margin: 0 auto;
   color: #1B2432;
   /* background-color: #f00; */
@@ -236,13 +238,14 @@ export const UpperTabView = styled(TouchableOpacity)`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 28px;
-  width: 40%;
-  /* border-width: 1px; */
-  /* border-style: solid; */
-  /* border-color: #ccc; */
-  /* border-radius: 16px; */
-  margin: 0 auto;
+  height: auto;
+  /* width: 40%; */
+  border-width: 2px;
+  border-style: solid;
+  border-color: #18A0FB;
+  border-radius: 16px;
+  margin: 0 auto 4px;
+  padding: 2px 16px;
   /* background-color: #f5f; */
 `;
 export const UpperTabText = styled.Text`
