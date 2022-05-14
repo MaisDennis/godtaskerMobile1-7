@@ -116,12 +116,12 @@ export default function ServiceDisplay({ data, navigation, display, userData, wo
           { data.price && data.price !== 0
             ? (
               <LabelBoldPrice numberOfLines={2} display={display}>
-                R$ {data.price}
+                {t('$')} {data.price}
               </LabelBoldPrice>
             )
             : (
               <LabelBoldPrice numberOfLines={2} display={display}>
-                Free
+                {t('Free')}
               </LabelBoldPrice>
             )
 
@@ -201,7 +201,7 @@ export default function ServiceDisplay({ data, navigation, display, userData, wo
             { display === true && data.tenure
               ? (
                 <TagView>
-                  <Label>Days to Complete:</Label>
+                  <Label>{t('DaysToComplete')}</Label>
                     <StartTime>{data.tenure}</StartTime>
                 </TagView>
 
@@ -211,14 +211,14 @@ export default function ServiceDisplay({ data, navigation, display, userData, wo
             { display === true && data.price
               ? (
                 <TagView>
-                  <Label>Price:</Label>
+                  <Label>{t('Price')}</Label>
                     <StartTime>{data.price}</StartTime>
                 </TagView>
               )
               : (
                 <TagView>
-                  <Label>Price:</Label>
-                    <StartTime>Free</StartTime>
+                  <Label>{t('Price')}</Label>
+                    <StartTime>{t('Free')}</StartTime>
                 </TagView>
               )
             }
@@ -267,7 +267,7 @@ export default function ServiceDisplay({ data, navigation, display, userData, wo
               type='inverted'
               onPress={handleMessageConversation}
             >
-              Contact User
+              {t('ContactUser')}
             </Button>
           </ButtonWrapperConfirm>
           <MarginView08/>
@@ -276,7 +276,7 @@ export default function ServiceDisplay({ data, navigation, display, userData, wo
             type='submit'
             onPress={handleSend}
             >
-              Hire this Service
+              {t('HireThisService')}
             </Button>
           </ButtonWrapperConfirm>
         </FormScrollView>

@@ -39,29 +39,21 @@ export default function SignUp(
 
   function handleSubmit() {
     try {
-      auth()
+      const bio = t("SignUpBio", { userName: `${userName}` })
+      const res = dispatch(signUpRequest(
+        userName,
+        password,
+        email,
+        bio,
+      ));
+
+      if (res) {
+        auth()
         .createUserWithEmailAndPassword(email, password)
         .then((response) => {
           response.user.sendEmailVerification();
-          const bio = t("SignUpBio", { userName: `${userName}` })
-          const res = dispatch(signUpRequest(
-            userName,
-            password,
-            email,
-            bio,
-          ));
 
-          if (res) {
-            console.log('User account created & signed in!');
-            Alert.alert(
-              t("ThankYou"),
-              t("AnEmailHasBeenSent", { email: `${email}` })
-            )
-          } else {
-            Alert.alert(
-              t('ErrorInData'),
-            )
-          }
+
         })
         .catch(error => {
           if (error.code === 'auth/email-already-in-use') {
@@ -82,8 +74,65 @@ export default function SignUp(
               ':(',
             )
           }
-
         });
+
+        console.log('User account created & signed in!');
+        Alert.alert(
+          t("ThankYou"),
+          t("AnEmailHasBeenSent", { email: `${email}` })
+        )
+      } else {
+        Alert.alert(
+          t('ErrorInData'),
+        )
+      }
+
+    // auth()
+    // .createUserWithEmailAndPassword(email, password)
+    // .then((response) => {
+    //   response.user.sendEmailVerification();
+    //   const bio = t("SignUpBio", { userName: `${userName}` })
+    //   const res = dispatch(signUpRequest(
+    //     userName,
+    //     password,
+    //     email,
+    //     bio,
+    //   ));
+
+    //   if (res) {
+    //     console.log('User account created & signed in!');
+    //     Alert.alert(
+    //       t("ThankYou"),
+    //       t("AnEmailHasBeenSent", { email: `${email}` })
+    //     )
+    //   } else {
+    //     Alert.alert(
+    //       t('ErrorInData'),
+    //     )
+    //   }
+    // })
+    // .catch(error => {
+    //   if (error.code === 'auth/email-already-in-use') {
+    //     console.log(error.message);
+    //     Alert.alert(
+    //     t("EmailAlreadyInUse"),
+    //   )
+    //   }
+
+    //   if (error.code === 'auth/invalid-email') {
+    //     console.log(error.message);
+    //     Alert.alert(
+    //       t("InvalidEmail"),
+    //     )
+    //   } else {
+    //     console.error(error);
+    //     Alert.alert(
+    //       ':(',
+    //     )
+    //   }
+
+    // });
+
     }
     catch (error) {
       Alert.alert(
@@ -153,8 +202,8 @@ export default function SignUp(
     <Container>
       <Form
         // contentContainerStyle={{ alignItems: 'center' }}
-        behavior={Platform.OS === "ios" ? "padding" : "position"}
-        keyboardVerticalOffset = {Platform.OS === "ios" ? "100" : null }
+        // behavior={Platform.OS === "ios" ? "padding" : "position"}
+        // keyboardVerticalOffset = {Platform.OS === "ios" ? "100" : null }
       >
         <Wrapper contentContainerStyle={{ alignItems: 'center', justifyContent: 'center'}}>
           <MarginView08/>

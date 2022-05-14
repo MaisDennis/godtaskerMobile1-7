@@ -146,7 +146,7 @@ export default function ServiceCreatePage({ navigation }) {
     return weigeSum;
   }
 
-  async function createTasks() {
+  async function createService() {
     weigeToPercentage(subTaskList)
     let subTaskCount = subTaskList.length
     let pointsVariable = 100
@@ -179,10 +179,10 @@ export default function ServiceCreatePage({ navigation }) {
 
 
     try {
-      createTasks()
+      createService()
       Alert.alert(
-        'Success! This Template can be seen in your Dashboard - Saved Tasks',
-        t('TaskRegistered'),
+        t('Success'),
+        t('ThisTemplateCan'),
         [{ style: "default" }],
         { cancelable: true },
       )
@@ -191,7 +191,7 @@ export default function ServiceCreatePage({ navigation }) {
     } catch(error) {
       setSubmitError(true)
       Alert.alert(
-        t('ErrorTaskNotRegistered'),
+        t('ErrorServiceNotRegistered'),
         t('PleaseTryAgain'),
         [{ style: "default" }],
         { cancelable: true },
@@ -224,11 +224,8 @@ export default function ServiceCreatePage({ navigation }) {
               />
             </ItemWrapperView>
             <MarginView08/>
-
-
           </DescriptionView01>
           <MarginView08/>
-
           <DescriptionView02 focusColor = {focusBorder}>
             <ItemWrapperView>
               <MarginView04/>

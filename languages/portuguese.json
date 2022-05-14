@@ -1,5 +1,20 @@
 {
   "translation": {
+    // components/Service
+    "LastUpdate": "Última atualização:",
+    "DaysToComplete": "Dias para completar:",
+    "Price": "Preço:",
+    "SendThisTask": "Enviar essa tarefa",
+    "DisplayInProfile": "Disponibilizar no perfil de trabalho",
+    "RemoveFromProfile": "Remover do perfil de trabalho",
+    "ContactUser": "Falar com o usuário",
+    "HireThisService": "Contratar esse serviço",
+    "AreYouSureDeleteSaved": "Tem certeza que deseja deletar essa tarefa salva?",
+
+    // components/ServiceDisplay
+    "$": "R$",
+    "Free": "Grátis",
+
     // components/TabRoutes
     "TabRoutesSearch": "Procurar",
 
@@ -64,6 +79,10 @@
     "DueToday": "para hoje",
     "Tomorrow": "amanhã",
     "ThisWeek": "essa semana",
+    "SavedTasks": "Tarefas salvas:",
+    "NoSavedTasks": "Não há tarefas salvas ainda",
+    "DisplayedIn": "Disponíveis no perfil de trabalho:",
+    "NoDisplayed": "Não há serviços disponíveis ainda",
     "SentTasksStatus": "Status de tarefas enviadas:",
     "Sent": "Enviadas",
     "EditBio": "Editar Bio",
@@ -71,7 +90,6 @@
     "EditLinkedIn": "Edit o usuário de LinkedIn:",
     "JustWrite": "Escreva apenas o nome de usuário",
     "LowerCaseUsername": "nome de usuário",
-    "Cancel": "Cancelar",
 
     //pages/MessageConversationPage
     "ForwardedMessage": "Mensagem Encaminhada",
@@ -84,6 +102,28 @@
 
     //pages/MessagesPage
     "NoMessages": "Não há mensagens",
+
+    //pages/ServiceCreatePage
+    "ThisTemplateCan": "This Template can be seen in your Dashboard - Saved Tasks",
+    "ErrorServiceNotRegistered": "Error: This Service was not created.",
+
+    //pages/ServiceDisplayPage
+    "TaskAdded": "A tarefa salva foi adicionada ao seu perfil de trabalho",
+    "ErrorSavedTask": "Erro: A tarefa salva não foi adicionada ao seu perfil de trabalho",
+    "SetStandardDueTime": "Definir Prazo Mínimo (em dias):",
+    "OptionToConfirmWithPhoto": "Opção para confirmar com foto:",
+    "StandardYes": "Sim por padrão",
+    "StandardNo": "Não por padrão",
+    "UserDecides": "Usuário decide",
+    "Price": "Preço (opcional):",
+
+    //pages/ServiceEditPage
+    "SavedTaskEdited": "A tarefa salva foi editada",
+    "SavedTaskNotEdited": "A tarefa salva não foi editada",
+    "Edit": "Editar",
+
+    //pages/ServiceSendPage
+    "PleaseCheckYourSent": "Por favor verificar a aba de 'Tarefas Enviadas'",
 
     // pages/Settings
     "INeedANewBio": "Preciso de uma nova bio",
@@ -197,6 +237,8 @@
     "UserReported": "Usuário denunciado",
     "BlockUser": "Bloquear Usuário",
     "UnblockUser": "Desbloquear Usuário",
+    "Services": "Serviços:",
+    "NoServices": "No há serviços ainda",
     "ThisUserReported": "Esse usuário foi denunciado e será verificado nas próximas 24 horas.",
     "ThisUserBlocked": "Esse usuário foi bloqueado e não será capaz de te achar ou entrar em contato contigo.",
     "ThisUserUnblocked": "Esse usuário foi desbloqueado.",

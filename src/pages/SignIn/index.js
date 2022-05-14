@@ -180,13 +180,14 @@ export default function SignIn({ navigation }) {
     // <SafeAreaView>
       <Container>
         <AlignView
-          behavior={Platform.OS === "ios" ? "padding" : "position"}
-          keyboardVerticalOffset = {Platform.OS === "ios" ? "100" : null }
+          // behavior={Platform.OS === "ios" ? "padding" : "position"}
+          // keyboardVerticalOffset = {Platform.OS === "ios" ? "100" : null }
           onPress={Keyboard.dismiss}
         >
           <Wrapper
             contentContainerStyle={{ alignItems: 'center', justifyContent: 'center'}}
           >
+            <MarginView08/>
             <ImageLogo source={logo} />
 
             <ImageGodtaskerFont source={godtaskerFont} />

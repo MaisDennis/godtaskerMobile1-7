@@ -303,8 +303,8 @@ export default function ServicePage({ navigation, route }) {
       })
 
       Alert.alert(
-        'Success! Please Check your "Sent Tasks" Tab',
-        t('TaskRegistered'),
+        t('Success'),
+        t('PleaseCheckYourSent'),
         [{ style: "default" }],
         { cancelable: true },
       )

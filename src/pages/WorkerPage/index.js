@@ -300,9 +300,7 @@ export default function WorkerPage({ navigation, route }) {
                   : (
                     <MenuButton onPress={handleUnblock}><MenuLabel>{t("UnblockUser")}</MenuLabel></MenuButton>
                   )
-
                 }
-
               </Menu>
             )
             : (
@@ -310,9 +308,6 @@ export default function WorkerPage({ navigation, route }) {
             )
 
           }
-
-
-
         </HeaderTabView>
         <MarginView04/>
         <UserView>
@@ -412,7 +407,7 @@ export default function WorkerPage({ navigation, route }) {
 {/* Displayed in Worker ---------------------------------------------------- */}
         <ContentView>
           <StatusView>
-            <Label>Services:</Label>
+            <Label>{t('Services')}</Label>
           </StatusView>
           <MarginView04/>
           <ServiceView>
@@ -428,7 +423,7 @@ export default function WorkerPage({ navigation, route }) {
               />
             ))
             : (
-              <LabelMild>No Services yet</LabelMild>
+              <LabelMild>{t('No services yet')}</LabelMild>
             )
           }
             </ServiceView>
@@ -441,7 +436,7 @@ export default function WorkerPage({ navigation, route }) {
             <MarginView08/>
             <ModalWrapper01>
               <BioText>
-                {t("ThisUserReported")}
+                {t('ThisUserReported')}
               </BioText>
               <MarginView04/>
               <Button type={'inverted'} onPress={() => setToggleReport(!toggleReport)}>

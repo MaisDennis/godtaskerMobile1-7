@@ -190,7 +190,7 @@ export default function ServiceDisplayPage({ navigation, route }) {
   function handleSubmit() {
     if (name === '') {
       Alert.alert(
-        'Task added to your Profile as a Service',
+        t('TaskAdded'),
         '',
         [{ style: "default" }],
         { cancelable: true },
@@ -201,15 +201,15 @@ export default function ServiceDisplayPage({ navigation, route }) {
     try {
       createTasks()
       Alert.alert(
-        'Saved Task added to Profile as a Service',
-        t('PleaseTryAgain'),
+        t('TaskAdded'),
+        '',
         [{ style: "default" }],
         { cancelable: true },
       )
     } catch(error) {
       setSubmitError(true)
       Alert.alert(
-        t('ErrorTaskNotRegistered'),
+        t('"ErrorSavedTask'),
         t('PleaseTryAgain'),
         [{ style: "default" }],
         { cancelable: true },
@@ -408,17 +408,17 @@ export default function ServiceDisplayPage({ navigation, route }) {
             { tenureOption === 2
               ? (
                 <ItemWrapperView>
-                  <RadioButtonLabelText>Set Standard Due Time (in days):</RadioButtonLabelText>
+                  <RadioButtonLabelText>{t('SetStandardDueTime')}</RadioButtonLabelText>
                   <MarginView04/>
                   <RadioButtonView>
                     <RadioButtonTagConfirmPhoto onPress={() => handleTenure(1)}>
-                      <RadioButtonLabel>Yes</RadioButtonLabel>
+                      <RadioButtonLabel>{t('Yes')}</RadioButtonLabel>
                       <RadioButtonOuter>
                         <RadioButtonInner1 switch={tenureOption}/>
                       </RadioButtonOuter>
                     </RadioButtonTagConfirmPhoto>
                     <RadioButtonTagConfirmPhoto onPress={() => handleTenure(2)}>
-                      <RadioButtonLabel>No</RadioButtonLabel>
+                      <RadioButtonLabel>{t('No')}</RadioButtonLabel>
                       <RadioButtonOuter>
                         <RadioButtonInner2 switch={tenureOption}/>
                       </RadioButtonOuter>
@@ -430,10 +430,10 @@ export default function ServiceDisplayPage({ navigation, route }) {
               : (
                 <ItemWrapperView>
                   <StatusView>
-                    <LabelText>Set Standard Due Time (in days):</LabelText>
+                    <LabelText>{t('SetStandardDueTime')}</LabelText>
                     <TenureButton onPress={() => handleTenure(2)}>
                       <TenureIcon name="chevron-left"/>
-                      <LabelTextTenure>Back</LabelTextTenure>
+                      <LabelTextTenure>{t('Back')}</LabelTextTenure>
                     </TenureButton>
                   </StatusView>
                   <MarginView04/>
@@ -452,23 +452,23 @@ export default function ServiceDisplayPage({ navigation, route }) {
             }
             <MarginView08/>
             <ItemWrapperView>
-              <RadioButtonLabelText>Option to Confirm with Photo:</RadioButtonLabelText>
+              <RadioButtonLabelText>{t('OptionToConfirmWithPhoto')}</RadioButtonLabelText>
               <MarginView04/>
               <RadioButtonView>
                 <RadioButtonTagConfirmPhoto onPress={() => handleConfirmPhotoOption(1)}>
-                  <RadioButtonLabel>Standard Yes</RadioButtonLabel>
+                  <RadioButtonLabel>{t('StandardYes')}</RadioButtonLabel>
                   <RadioButtonOuter>
                     <RadioButtonInner1 switch={confirmPhotoOption}/>
                   </RadioButtonOuter>
                 </RadioButtonTagConfirmPhoto>
                 <RadioButtonTagConfirmPhoto onPress={() => handleConfirmPhotoOption(2)}>
-                  <RadioButtonLabel>Standard No</RadioButtonLabel>
+                  <RadioButtonLabel>{t('StandardNo')}</RadioButtonLabel>
                   <RadioButtonOuter>
                     <RadioButtonInner2 switch={confirmPhotoOption}/>
                   </RadioButtonOuter>
                 </RadioButtonTagConfirmPhoto>
                 <RadioButtonTagConfirmPhoto onPress={() => handleConfirmPhotoOption(3)}>
-                  <RadioButtonLabel>User Decides</RadioButtonLabel>
+                  <RadioButtonLabel>{t('UserDecides')}</RadioButtonLabel>
                   <RadioButtonOuter>
                     <RadioButtonInner3 switch={confirmPhotoOption}/>
                   </RadioButtonOuter>
@@ -477,14 +477,14 @@ export default function ServiceDisplayPage({ navigation, route }) {
             </ItemWrapperView>
             <MarginView08/>
             <ItemWrapperView>
-              <LabelText>Price (optional):</LabelText>
+              <LabelText>{t('PriceOptional')}</LabelText>
               <MarginView04/>
               <InputPrice
                 enablesReturnKeyAutomatically
                 multiline
                 numberOfLines={1}
                 onChangeText={setPrice}
-                placeholder={'i.e. $10.00'}
+                placeholder={t('Ie10')}
                 value={price}
                 onFocus={() => setFocusBorder(3)}
               />

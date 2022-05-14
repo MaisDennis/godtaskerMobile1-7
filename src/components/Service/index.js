@@ -179,19 +179,19 @@ export default function Service({ children, data, navigation, display, workerPag
               </CenterView>
               <MarginView04/>
               <TagView>
-                <Label>Created:</Label>
+                <Label>{t('Created')}</Label>
                 <StartTime>{formattedDateTime(data.createdAt)}</StartTime>
               </TagView>
               { data.createdAt !== data.updatedAt &&
                 <TagView>
-                  <Label>Last Update:</Label>
+                  <Label>{t('LastUpdate')}</Label>
                   <StartTime>{formattedDateTime(data.updatedAt)}</StartTime>
                 </TagView>
               }
               { display === true && data.tenure
                 ? (
                   <TagView>
-                    <Label>Days to Complete:</Label>
+                    <Label>{t('')}</Label>
                       <StartTime>{data.tenure}</StartTime>
                   </TagView>
 
@@ -201,7 +201,7 @@ export default function Service({ children, data, navigation, display, workerPag
               { display === true && data.price
                 ? (
                   <TagView>
-                    <Label>Price:</Label>
+                    <Label>{t('Price')}</Label>
                       <StartTime>{data.price}</StartTime>
                   </TagView>
                 )
@@ -256,7 +256,7 @@ export default function Service({ children, data, navigation, display, workerPag
                     <Button
                       onPress={handleSend}
                     >
-                      Send this Task
+                      {t('SendThisTask')}
                     </Button>
                   </ButtonWrapperConfirm>
                   <MarginView08/>
@@ -265,7 +265,7 @@ export default function Service({ children, data, navigation, display, workerPag
                     type='submit'
                     onPress={handleDisplay}
                     >
-                      Display in Profile to Receive
+                      {t('DisplayInProfile')}
                     </Button>
                   </ButtonWrapperConfirm>
               </>
@@ -278,7 +278,7 @@ export default function Service({ children, data, navigation, display, workerPag
                         <Button
                           onPress={handleRemoveDisplay}
                         >
-                          Remove from Profile
+                          {t('RemoveFromProfile')}
                         </Button>
                       </ButtonWrapperConfirm>
                     )
@@ -289,7 +289,7 @@ export default function Service({ children, data, navigation, display, workerPag
                           type='inverted'
                           // onPress={handleRemoveDisplay}
                         >
-                          Contact User
+                          {t('ContactUser')}
                         </Button>
                       </ButtonWrapperConfirm>
                       <MarginView08/>
@@ -298,7 +298,7 @@ export default function Service({ children, data, navigation, display, workerPag
                         type='submit'
                         onPress={handleDisplay}
                         >
-                          Hire this Service
+                          {t('HireThisService')}
                         </Button>
                       </ButtonWrapperConfirm>
                       </>
@@ -318,7 +318,7 @@ export default function Service({ children, data, navigation, display, workerPag
             <AcceptButtonView>
               <MarginView08/>
               <CenterView>
-                <ModalText>Are you sure you want to delete this template?</ModalText>
+                <ModalText>{t('AreYouSureDeleteSaved')}</ModalText>
               </CenterView>
               <MarginView08/>
               <ButtonWrapper>
@@ -327,14 +327,14 @@ export default function Service({ children, data, navigation, display, workerPag
                   small={true}
                   onPress={handleDeleteService}
                 >
-                  Yes
+                  {t('Yes')}
                 </Button>
                 <Button
                   type={'inverted'}
                   small={true}
                   onPress={() => setToggleDeleteService(!toggleDeleteService)}
                 >
-                  Back
+                  {t('Back')}
                 </Button>
               </ButtonWrapper>
               <MarginView08/>

@@ -253,12 +253,10 @@ color: #1B2432;
 export const Wrapper = styled.ScrollView`
   display: flex;
   flex-direction: column;
-  /* align-items: center;
-  justify-content: center; */
   height: auto;
-  width: 80%;
+  width: 100%;
   min-width: 320px;
   margin: 0 auto;
-  /* padding-bottom: 32px; */
+  padding: 0 10%;
   /* background-color: #f5f; */
 `;

@@ -84,15 +84,14 @@ export const ReplyView = styled.View`
 export const SendInput = styled.TextInput`
   font-size: ${Platform.OS === 'ios' ? '14px' : '12px'};
 
-  line-height: ${Platform.OS === 'ios' ? '16px' : '14px'};
-
-  height: 36px;
+  line-height: ${Platform.OS === 'ios' ? '16px' : '18px'};
+  height: auto;
   width: 80%;
-  border-radius: 32px;
+  border-radius: 16px;
   border-width: 1px;
   border-color: #ccc;
   margin: 8px 0;
-  padding: ${Platform.OS === 'ios' ? '0 12px' : '0 11px'};
+  padding: ${Platform.OS === 'ios' ? '0 12px' : '2px 12px 4px'};
   color: #1B2432;
   background-color: #eee;
 `;

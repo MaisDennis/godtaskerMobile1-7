@@ -735,6 +735,19 @@ export const SearchBarTextInput = styled.View`
   background-color: #fff;
 `;
 
+export const ServiceView = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  height: auto;
+  width: 90%;
+  margin: 0;
+  /* background-color: #f5f5f5; */
+  /* background-color: #ee3; */
+
+`;
+
 export const SocialMediaButton = styled(TouchableOpacity)`
   display: flex;
   flex-direction: row;
@@ -831,19 +844,6 @@ export const StatusView = styled.View`
   width: 90%;
   margin: 0;
   /* background-color: #f00; */
-`;
-
-export const ServiceView = styled.View`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  height: auto;
-  width: 90%;
-  margin: 0;
-  /* background-color: #f5f5f5; */
-  /* background-color: #ee3; */
-
 `;
 
 export const UserImage = styled.Image`

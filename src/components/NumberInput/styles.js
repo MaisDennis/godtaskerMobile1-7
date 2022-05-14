@@ -71,7 +71,6 @@ export const NumberIcon = styled(Icon)`
   font-family: ${Platform.OS === 'ios' ? 'system font' : primaryFont};
   font-weight: bold;
   margin: auto;
-  color: #1B2432;
   color:  ${props => props.focusColor === 2
     ? props => props.worker === true
       ? '#334466'

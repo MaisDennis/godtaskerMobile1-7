@@ -1,5 +1,20 @@
 {
   "translation": {
+    // components/Service
+    "LastUpdate": "Last Update:",
+    "DaysToComplete": "Days to complete:",
+    "Price": "Price:",
+    "SendThisTask": "Send this task",
+    "DisplayInProfile": "Display in Profile to Receive",
+    "RemoveFromProfile": "Remove from Profile",
+    "ContactUser": "Contact User",
+    "HireThisService": "Hire This Service",
+    "AreYouSureDeleteSaved": "Are you sure you want to delete this saved task?",
+
+    // components/ServiceDisplay
+    "$": "$",
+    "Free": "Free",
+
     // components/TabRoutes
     "TabRoutesSearch": "Search",
 
@@ -64,6 +79,10 @@
     "DueToday": "due today",
     "Tomorrow": "tomorrow",
     "ThisWeek": "this week",
+    "SavedTasks": "Saved Tasks:",
+    "NoSavedTasks": "No saved tasks yet",
+    "DisplayedIn": "Displayed in worker profile:",
+    "NoDisplayed": "No displayed services yet",
     "SentTasksStatus": "Sent Tasks Status:",
     "Sent": "Sent",
     "EditBio": "Edit Bio:",
@@ -83,6 +102,30 @@
 
     //pages/MessagesPage
     "NoMessages": "No Messages",
+
+    //pages/ServiceCreatePage
+    "ThisTemplateCan": "This Template can be seen in your Dashboard - Saved Tasks",
+    "ErrorServiceNotRegistered": "Error: This Service was not created.",
+
+    //pages/ServiceDisplayPage
+    "TaskAdded": "Saved Task added to your Profile as a Service",
+    "ErrorSavedTask": "Error: Saved Task has not been added to your Profile",
+    "SetStandardDueTime": "Set Standard Due Time (in Days):",
+    "OptionToConfirmWithPhoto": "Option to Confirm with Photo:",
+    "StandardYes": "Standard Yes",
+    "StandardNo": "Standard No",
+    "UserDecides": "User Decides",
+    "PriceOptional": "Price (optional):",
+    "Ie10": "i.e. $10.00",
+
+    //pages/ServiceEditPage
+    "SavedTaskEdited": "Saved Task has been edited",
+    "SavedTaskNotEdited": "Saved Task has not been edited",
+    "Edit": "Edit",
+
+    //pages/ServiceSendPage
+    "PleaseCheckYourSent": "Please Check your 'Sent Tasks' Tab",
+
 
     // pages/Settings
     "INeedANewBio": "I need a new bio",
@@ -157,7 +200,7 @@
     "NA": "n/a",
     "ConfirmWithPhoto": "Confirm with photo?",
     "Yes": "Yes",
-    "no": "No",
+    "No": "No",
     "OtherComments": "Other Comments:",
     "DontForget": "Don't forget to wax",
     "StartDate": "Start date:",
@@ -198,10 +241,11 @@
     "UserReported": "User Reported",
     "BlockUser": "Block User",
     "UnblockUser": "Unblock User",
+    "Services": "Services:",
+    "NoServices": "No services yet",
     "ThisUserReported": "This User has been Reported and will be verified in the next 24 hours.",
     "ThisUserBlocked": "This User has been Blocked and will be not be able to find or contact you.",
     "ThisUserUnblocked": "This User has been Unblocked.",
-
 
     //routes.js
     "CreateTask": "Create Task",

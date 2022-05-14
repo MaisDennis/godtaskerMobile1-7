@@ -503,7 +503,7 @@ export default function Dashboard({ navigation }) {
 {/* Services --------------------------------------------------------------- */}
         <ContentView>
           <StatusView>
-            <Label>Saved Tasks:</Label>
+            <Label>{t('SavedTasks')}</Label>
             <SocialMediaButton onPress={handleToggleServiceCreate}>
               <Iicon name='plus' size={20}/>
             </SocialMediaButton>
@@ -520,7 +520,7 @@ export default function Dashboard({ navigation }) {
                 >{s.name}</Service>
               ))
               : (
-                <LabelMild>No Saved Tasks yet</LabelMild>
+                <LabelMild>{t('NoSavedTasks')}</LabelMild>
               )
           }
 
@@ -531,7 +531,7 @@ export default function Dashboard({ navigation }) {
 {/* Displayed in Worker ---------------------------------------------------- */}
         <ContentView>
           <StatusView>
-            <Label>Displayed in Worker Profile:</Label>
+            <Label>{t('DisplayedIn')}</Label>
           </StatusView>
           <MarginView04/>
           <ServiceView>
@@ -546,7 +546,7 @@ export default function Dashboard({ navigation }) {
               >{s.name}</Service>
             ))
             : (
-              <LabelMild>No Displayed Services yet</LabelMild>
+              <LabelMild>{t('NoDisplayed')}</LabelMild>
             )
           }
             </ServiceView>

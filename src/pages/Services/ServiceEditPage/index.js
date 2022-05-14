@@ -226,8 +226,8 @@ export default function ServiceEditPage({ navigation, route }) {
       editTasks()
 
       Alert.alert(
-        'Success! Task has been Edited',
-        t('TaskRegistered'),
+        t('Success'),
+        t('SavedTaskEdited'),
         [{ style: "default" }],
         { cancelable: true },
       )
@@ -235,7 +235,7 @@ export default function ServiceEditPage({ navigation, route }) {
     catch(error) {
       console.log('error')
       Alert.alert(
-        t('ErrorTaskNotRegistered'),
+        t('SavedTaskNotEdited'),
         t('PleaseTryAgain'),
         [{ style: "default" }],
         { cancelable: true },
@@ -509,7 +509,7 @@ export default function ServiceEditPage({ navigation, route }) {
           <MarginView08/>
           <ItemWrapperView>
             <Button onPress={handleSubmit}>
-              Edit
+              {t('Edit')}
             </Button>
           </ItemWrapperView>
           <MarginView08/>
